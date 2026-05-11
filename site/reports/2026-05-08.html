@@ -239,6 +239,16 @@
       color: #b91c1c;
       font-weight: 800;
     }
+    .detail-link {
+      color: inherit;
+      font-weight: inherit;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+    .detail-link:hover {
+      color: var(--accent-strong);
+    }
     .table-wrap {
       overflow-x: auto;
       border: 1px solid var(--line);
@@ -286,9 +296,9 @@
 <li>뉴스/공시 조회 범위: 최근 5일</li>
 </ul>
 <h2>Top 20 요약</h2>
-<div class="table-wrap"><table><thead><tr><th>순위</th><th>티커</th><th>회사</th><th>종가</th><th>거래량</th><th>변동률</th><th>최근 뉴스</th><th>실적/공시</th></tr></thead><tbody><tr><td class="">1</td><td class="">AEHL</td><td class="">Antelope Enterprise Holdings Limited Class A</td><td class="">$1.20</td><td class="">315,894,828</td><td class="positive"><span class="positive">+135.34%</span></td><td class="">0</td><td class="">없음</td></tr><tr><td class="">2</td><td class="">RXT</td><td class="">Rackspace Technology Inc.</td><td class="">$5.49</td><td class="">152,258,803</td><td class="positive"><span class="positive">+55.97%</span></td><td class="">4</td><td class="filing-yes">있음</td></tr><tr><td class="">3</td><td class="">TRAW</td><td class="">Traws Pharma Inc.</td><td class="">$2.18</td><td class="">89,122,316</td><td class="positive"><span class="positive">+28.24%</span></td><td class="">4</td><td class="">없음</td></tr><tr><td class="">4</td><td class="">ABEV</td><td class="">Ambev S.A. (Each representing 1 Common Share)</td><td class="">$3.29</td><td class="">73,517,048</td><td class="positive"><span class="positive">+0.30%</span></td><td class="">0</td><td class="">없음</td></tr><tr><td class="">5</td><td class="">BB</td><td class="">BlackBerry Limited</td><td class="">$6.37</td><td class="">56,590,352</td><td class="positive"><span class="positive">+4.43%</span></td><td class="">4</td><td class="filing-yes">있음</td></tr><tr><td class="">6</td><td class="">SLNH</td><td class="">Soluna Holdings Inc.</td><td class="">$1.83</td><td class="">54,168,950</td><td class="positive"><span class="positive">+20.39%</span></td><td class="">4</td><td class="filing-yes">있음</td></tr><tr><td class="">7</td><td class="">EOSE</td><td class="">Eos Energy Enterprises Inc. Class A</td><td class="">$8.01</td><td class="">53,745,991</td><td class="positive"><span class="positive">+25.94%</span></td><td class="">1</td><td class="">없음</td></tr><tr><td class="">8</td><td class="">OPEN</td><td class="">Opendoor Technologies Inc</td><td class="">$5.01</td><td class="">53,681,033</td><td class="negative"><span class="negative">-5.83%</span></td><td class="">4</td><td class="filing-yes">있음</td></tr><tr><td class="">9</td><td class="">GRAB</td><td class="">Grab Holdings Limited Class A</td><td class="">$3.72</td><td class="">52,324,527</td><td class="negative"><span class="negative">-1.85%</span></td><td class="">0</td><td class="">없음</td></tr><tr><td class="">10</td><td class="">SOUN</td><td class="">SoundHound AI Inc Class A</td><td class="">$8.88</td><td class="">49,135,656</td><td class="negative"><span class="negative">-7.79%</span></td><td class="">1</td><td class="filing-yes">있음</td></tr><tr><td class="">11</td><td class="">PLUG</td><td class="">Plug Power Inc.</td><td class="">$3.12</td><td class="">45,662,772</td><td class="negative"><span class="negative">-0.32%</span></td><td class="">4</td><td class="">없음</td></tr><tr><td class="">12</td><td class="">ACHR</td><td class="">Archer Aviation Inc. Class A</td><td class="">$6.48</td><td class="">45,513,353</td><td class="positive"><span class="positive">+3.18%</span></td><td class="">1</td><td class="">없음</td></tr><tr><td class="">13</td><td class="">SNAP</td><td class="">Snap Inc. Class A</td><td class="">$6.08</td><td class="">39,960,382</td><td class="positive"><span class="positive">+1.67%</span></td><td class="">4</td><td class="filing-yes">있음</td></tr><tr><td class="">14</td><td class="">BBAI</td><td class="">BigBear.ai Inc.</td><td class="">$4.18</td><td class="">35,039,277</td><td class="positive"><span class="positive">+0.24%</span></td><td class="">4</td><td class="filing-yes">있음</td></tr><tr><td class="">15</td><td class="">BTG</td><td class="">B2Gold Corp Common shares (Canada)</td><td class="">$5.30</td><td class="">34,000,298</td><td class="positive"><span class="positive">+7.07%</span></td><td class="">0</td><td class="">없음</td></tr><tr><td class="">16</td><td class="">ONDS</td><td class="">Ondas Inc.</td><td class="">$9.06</td><td class="">33,826,001</td><td class="positive"><span class="positive">+1.91%</span></td><td class="">4</td><td class="filing-yes">있음</td></tr><tr><td class="">17</td><td class="">KEEL</td><td class="">Keel Infrastructure Corp.</td><td class="">$3.97</td><td class="">31,541,659</td><td class="negative"><span class="negative">-1.00%</span></td><td class="">4</td><td class="">없음</td></tr><tr><td class="">18</td><td class="">RIG</td><td class="">Transocean Ltd (Switzerland)</td><td class="">$6.40</td><td class="">31,206,779</td><td class="positive"><span class="positive">+3.73%</span></td><td class="">3</td><td class="filing-yes">있음</td></tr><tr><td class="">19</td><td class="">AUR</td><td class="">Aurora Innovation Inc. Class A</td><td class="">$7.08</td><td class="">28,184,389</td><td class="negative"><span class="negative">-0.84%</span></td><td class="">2</td><td class="filing-yes">있음</td></tr><tr><td class="">20</td><td class="">UPWK</td><td class="">Upwork Inc.</td><td class="">$8.82</td><td class="">26,572,183</td><td class="negative"><span class="negative">-16.87%</span></td><td class="">4</td><td class="filing-yes">있음</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>순위</th><th>티커</th><th>회사</th><th>종가</th><th>거래량</th><th>변동률</th><th>최근 뉴스</th><th>실적/공시</th></tr></thead><tbody><tr><td class="">1</td><td class="">AEHL</td><td class=""><a class="detail-link" href="#stock-aehl">Antelope Enterprise Holdings Limited Class A</a></td><td class="">$1.20</td><td class="">315,894,828</td><td class="positive"><span class="positive">+135.34%</span></td><td class="">0</td><td class=""><a class="detail-link" href="#stock-aehl">없음</a></td></tr><tr><td class="">2</td><td class="">RXT</td><td class=""><a class="detail-link" href="#stock-rxt">Rackspace Technology Inc.</a></td><td class="">$5.49</td><td class="">152,258,803</td><td class="positive"><span class="positive">+55.97%</span></td><td class="">4</td><td class="filing-yes"><a class="detail-link" href="#stock-rxt">있음</a></td></tr><tr><td class="">3</td><td class="">TRAW</td><td class=""><a class="detail-link" href="#stock-traw">Traws Pharma Inc.</a></td><td class="">$2.18</td><td class="">89,122,316</td><td class="positive"><span class="positive">+28.24%</span></td><td class="">4</td><td class=""><a class="detail-link" href="#stock-traw">없음</a></td></tr><tr><td class="">4</td><td class="">ABEV</td><td class=""><a class="detail-link" href="#stock-abev">Ambev S.A. (Each representing 1 Common Share)</a></td><td class="">$3.29</td><td class="">73,517,048</td><td class="positive"><span class="positive">+0.30%</span></td><td class="">0</td><td class=""><a class="detail-link" href="#stock-abev">없음</a></td></tr><tr><td class="">5</td><td class="">BB</td><td class=""><a class="detail-link" href="#stock-bb">BlackBerry Limited</a></td><td class="">$6.37</td><td class="">56,590,352</td><td class="positive"><span class="positive">+4.43%</span></td><td class="">4</td><td class="filing-yes"><a class="detail-link" href="#stock-bb">있음</a></td></tr><tr><td class="">6</td><td class="">SLNH</td><td class=""><a class="detail-link" href="#stock-slnh">Soluna Holdings Inc.</a></td><td class="">$1.83</td><td class="">54,168,950</td><td class="positive"><span class="positive">+20.39%</span></td><td class="">4</td><td class="filing-yes"><a class="detail-link" href="#stock-slnh">있음</a></td></tr><tr><td class="">7</td><td class="">EOSE</td><td class=""><a class="detail-link" href="#stock-eose">Eos Energy Enterprises Inc. Class A</a></td><td class="">$8.01</td><td class="">53,745,991</td><td class="positive"><span class="positive">+25.94%</span></td><td class="">1</td><td class=""><a class="detail-link" href="#stock-eose">없음</a></td></tr><tr><td class="">8</td><td class="">OPEN</td><td class=""><a class="detail-link" href="#stock-open">Opendoor Technologies Inc</a></td><td class="">$5.01</td><td class="">53,681,033</td><td class="negative"><span class="negative">-5.83%</span></td><td class="">4</td><td class="filing-yes"><a class="detail-link" href="#stock-open">있음</a></td></tr><tr><td class="">9</td><td class="">GRAB</td><td class=""><a class="detail-link" href="#stock-grab">Grab Holdings Limited Class A</a></td><td class="">$3.72</td><td class="">52,324,527</td><td class="negative"><span class="negative">-1.85%</span></td><td class="">0</td><td class=""><a class="detail-link" href="#stock-grab">없음</a></td></tr><tr><td class="">10</td><td class="">SOUN</td><td class=""><a class="detail-link" href="#stock-soun">SoundHound AI Inc Class A</a></td><td class="">$8.88</td><td class="">49,135,656</td><td class="negative"><span class="negative">-7.79%</span></td><td class="">1</td><td class="filing-yes"><a class="detail-link" href="#stock-soun">있음</a></td></tr><tr><td class="">11</td><td class="">PLUG</td><td class=""><a class="detail-link" href="#stock-plug">Plug Power Inc.</a></td><td class="">$3.12</td><td class="">45,662,772</td><td class="negative"><span class="negative">-0.32%</span></td><td class="">4</td><td class=""><a class="detail-link" href="#stock-plug">없음</a></td></tr><tr><td class="">12</td><td class="">ACHR</td><td class=""><a class="detail-link" href="#stock-achr">Archer Aviation Inc. Class A</a></td><td class="">$6.48</td><td class="">45,513,353</td><td class="positive"><span class="positive">+3.18%</span></td><td class="">1</td><td class=""><a class="detail-link" href="#stock-achr">없음</a></td></tr><tr><td class="">13</td><td class="">SNAP</td><td class=""><a class="detail-link" href="#stock-snap">Snap Inc. Class A</a></td><td class="">$6.08</td><td class="">39,960,382</td><td class="positive"><span class="positive">+1.67%</span></td><td class="">4</td><td class="filing-yes"><a class="detail-link" href="#stock-snap">있음</a></td></tr><tr><td class="">14</td><td class="">BBAI</td><td class=""><a class="detail-link" href="#stock-bbai">BigBear.ai Inc.</a></td><td class="">$4.18</td><td class="">35,039,277</td><td class="positive"><span class="positive">+0.24%</span></td><td class="">4</td><td class="filing-yes"><a class="detail-link" href="#stock-bbai">있음</a></td></tr><tr><td class="">15</td><td class="">BTG</td><td class=""><a class="detail-link" href="#stock-btg">B2Gold Corp Common shares (Canada)</a></td><td class="">$5.30</td><td class="">34,000,298</td><td class="positive"><span class="positive">+7.07%</span></td><td class="">0</td><td class=""><a class="detail-link" href="#stock-btg">없음</a></td></tr><tr><td class="">16</td><td class="">ONDS</td><td class=""><a class="detail-link" href="#stock-onds">Ondas Inc.</a></td><td class="">$9.06</td><td class="">33,826,001</td><td class="positive"><span class="positive">+1.91%</span></td><td class="">4</td><td class="filing-yes"><a class="detail-link" href="#stock-onds">있음</a></td></tr><tr><td class="">17</td><td class="">KEEL</td><td class=""><a class="detail-link" href="#stock-keel">Keel Infrastructure Corp.</a></td><td class="">$3.97</td><td class="">31,541,659</td><td class="negative"><span class="negative">-1.00%</span></td><td class="">4</td><td class=""><a class="detail-link" href="#stock-keel">없음</a></td></tr><tr><td class="">18</td><td class="">RIG</td><td class=""><a class="detail-link" href="#stock-rig">Transocean Ltd (Switzerland)</a></td><td class="">$6.40</td><td class="">31,206,779</td><td class="positive"><span class="positive">+3.73%</span></td><td class="">3</td><td class="filing-yes"><a class="detail-link" href="#stock-rig">있음</a></td></tr><tr><td class="">19</td><td class="">AUR</td><td class=""><a class="detail-link" href="#stock-aur">Aurora Innovation Inc. Class A</a></td><td class="">$7.08</td><td class="">28,184,389</td><td class="negative"><span class="negative">-0.84%</span></td><td class="">2</td><td class="filing-yes"><a class="detail-link" href="#stock-aur">있음</a></td></tr><tr><td class="">20</td><td class="">UPWK</td><td class=""><a class="detail-link" href="#stock-upwk">Upwork Inc.</a></td><td class="">$8.82</td><td class="">26,572,183</td><td class="negative"><span class="negative">-16.87%</span></td><td class="">4</td><td class="filing-yes"><a class="detail-link" href="#stock-upwk">있음</a></td></tr></tbody></table></div>
 <h2>회사별 상세</h2>
-<h3>1. Antelope Enterprise Holdings Limited Class A (AEHL)</h3>
+<h3 id="stock-aehl">1. Antelope Enterprise Holdings Limited Class A (AEHL)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Industrials / Building Materials</li>
@@ -307,7 +317,7 @@
 <ul>
 <li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
 </ul>
-<h3>2. Rackspace Technology Inc. (RXT)</h3>
+<h3 id="stock-rxt">2. Rackspace Technology Inc. (RXT)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Technology / Computer Software: Programming, Data Processing</li>
@@ -330,7 +340,7 @@
 <li>2026-05-08 | 10-Q | <a href="https://www.sec.gov/Archives/edgar/data/1810019/000181001926000044/rxt-20260331.htm" target="_blank" rel="noopener">10-Q</a></li>
 <li>2026-05-07 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1810019/000181001926000041/rxt-20260507.htm" target="_blank" rel="noopener">8-K</a> - 요약: 10-Q는 분기 실적과 재무상태를 담은 정기 보고서이고, 8-K는 실적 발표 등 주요 기업 이벤트를 알리는 공시입니다.</li>
 </ul>
-<h3>3. Traws Pharma Inc. (TRAW)</h3>
+<h3 id="stock-traw">3. Traws Pharma Inc. (TRAW)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Health Care / Biotechnology: Pharmaceutical Preparations</li>
@@ -352,7 +362,7 @@
 <ul>
 <li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
 </ul>
-<h3>4. Ambev S.A. (Each representing 1 Common Share) (ABEV)</h3>
+<h3 id="stock-abev">4. Ambev S.A. (Each representing 1 Common Share) (ABEV)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Consumer Staples / Beverages (Production/Distribution)</li>
@@ -371,7 +381,7 @@
 <ul>
 <li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
 </ul>
-<h3>5. BlackBerry Limited (BB)</h3>
+<h3 id="stock-bb">5. BlackBerry Limited (BB)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Technology / Computer Software: Prepackaged Software</li>
@@ -393,7 +403,7 @@
 <ul>
 <li>2026-05-08 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1070235/000107023526000051/bbry-20260508.htm" target="_blank" rel="noopener">8-K</a> - 요약: 8-K는 BlackBerry가 투자자에게 즉시 알려야 하는 주요 기업 이벤트를 SEC에 제출한 공시입니다.</li>
 </ul>
-<h3>6. Soluna Holdings Inc. (SLNH)</h3>
+<h3 id="stock-slnh">6. Soluna Holdings Inc. (SLNH)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Technology / EDP Services</li>
@@ -415,7 +425,7 @@
 <ul>
 <li>2026-05-07 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/64463/000149315226021610/form8-k.htm" target="_blank" rel="noopener">8-K</a> - 요약: 8-K는 Soluna가 나스닥 준수, 자산 취득, 자금 조달 등 투자 판단에 영향을 줄 수 있는 주요 사건을 알리는 공시입니다.</li>
 </ul>
-<h3>7. Eos Energy Enterprises Inc. Class A (EOSE)</h3>
+<h3 id="stock-eose">7. Eos Energy Enterprises Inc. Class A (EOSE)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Miscellaneous / Industrial Machinery/Components</li>
@@ -434,7 +444,7 @@
 <ul>
 <li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
 </ul>
-<h3>8. Opendoor Technologies Inc (OPEN)</h3>
+<h3 id="stock-open">8. Opendoor Technologies Inc (OPEN)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Finance / Real Estate</li>
@@ -457,7 +467,7 @@
 <li>2026-05-07 | 10-Q | <a href="https://www.sec.gov/Archives/edgar/data/1801169/000180116926000014/open-20260331.htm" target="_blank" rel="noopener">10-Q</a></li>
 <li>2026-05-07 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1801169/000180116926000013/open-20260507.htm" target="_blank" rel="noopener">8-K</a> - 요약: 10-Q는 분기 실적과 재무상태 보고서이며, 8-K는 1분기 실적 발표 등 주요 사건을 알리는 공시입니다.</li>
 </ul>
-<h3>9. Grab Holdings Limited Class A (GRAB)</h3>
+<h3 id="stock-grab">9. Grab Holdings Limited Class A (GRAB)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Real Estate / Real Estate</li>
@@ -476,7 +486,7 @@
 <ul>
 <li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
 </ul>
-<h3>10. SoundHound AI Inc Class A (SOUN)</h3>
+<h3 id="stock-soun">10. SoundHound AI Inc Class A (SOUN)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Technology / Computer Software: Prepackaged Software</li>
@@ -495,7 +505,7 @@
 <ul>
 <li>2026-05-07 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1840856/000184085626000012/soun-20260507.htm" target="_blank" rel="noopener">8-K</a> - 요약: 8-K는 SoundHound AI가 실적 발표 또는 주요 기업 이벤트를 투자자에게 알리기 위해 제출한 공시입니다.</li>
 </ul>
-<h3>11. Plug Power Inc. (PLUG)</h3>
+<h3 id="stock-plug">11. Plug Power Inc. (PLUG)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Energy / Industrial Machinery/Components</li>
@@ -517,7 +527,7 @@
 <ul>
 <li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
 </ul>
-<h3>12. Archer Aviation Inc. Class A (ACHR)</h3>
+<h3 id="stock-achr">12. Archer Aviation Inc. Class A (ACHR)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Industrials / Aerospace</li>
@@ -536,7 +546,7 @@
 <ul>
 <li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
 </ul>
-<h3>13. Snap Inc. Class A (SNAP)</h3>
+<h3 id="stock-snap">13. Snap Inc. Class A (SNAP)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Technology / Computer Software: Programming, Data Processing</li>
@@ -560,7 +570,7 @@
 <li>2026-05-07 | 10-Q | <a href="https://www.sec.gov/Archives/edgar/data/1564408/000156440826000027/snap-20260331.htm" target="_blank" rel="noopener">10-Q</a></li>
 <li>2026-05-06 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1564408/000156440826000024/snap-20260506.htm" target="_blank" rel="noopener">8-K</a> - 요약: 8-K/A는 기존 주요 이벤트 공시의 수정본, 10-Q는 분기 실적 보고서, 8-K는 실적 발표 등 주요 사건 공시입니다.</li>
 </ul>
-<h3>14. BigBear.ai Inc. (BBAI)</h3>
+<h3 id="stock-bbai">14. BigBear.ai Inc. (BBAI)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Technology / Computer Software: Prepackaged Software</li>
@@ -583,7 +593,7 @@
 <li>2026-05-05 | 10-Q | <a href="https://www.sec.gov/Archives/edgar/data/1836981/000183698126000049/bbai-20260331.htm" target="_blank" rel="noopener">10-Q</a></li>
 <li>2026-05-05 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1836981/000183698126000047/bbai-20260505.htm" target="_blank" rel="noopener">8-K</a> - 요약: 10-Q는 분기 실적과 재무상태 보고서이며, 8-K는 실적 발표나 주요 경영 이벤트를 알리는 공시입니다.</li>
 </ul>
-<h3>15. B2Gold Corp Common shares (Canada) (BTG)</h3>
+<h3 id="stock-btg">15. B2Gold Corp Common shares (Canada) (BTG)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Basic Materials / Precious Metals</li>
@@ -602,7 +612,7 @@
 <ul>
 <li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
 </ul>
-<h3>16. Ondas Inc. (ONDS)</h3>
+<h3 id="stock-onds">16. Ondas Inc. (ONDS)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Technology / Radio And Television Broadcasting And Communications Equipment</li>
@@ -626,7 +636,7 @@
 <li>2026-05-08 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1646188/000121390026053612/ea0289654-8k_ondas.htm" target="_blank" rel="noopener">CURRENT REPORT</a></li>
 <li>2026-05-05 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1646188/000121390026051933/ea0289024-8k_ondas.htm" target="_blank" rel="noopener">CURRENT REPORT</a> - 요약: Ondas가 투자자에게 즉시 알려야 하는 복수의 주요 기업 이벤트를 8-K 형식으로 공시했습니다.</li>
 </ul>
-<h3>17. Keel Infrastructure Corp. (KEEL)</h3>
+<h3 id="stock-keel">17. Keel Infrastructure Corp. (KEEL)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Finance / Finance: Consumer Services</li>
@@ -648,7 +658,7 @@
 <ul>
 <li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
 </ul>
-<h3>18. Transocean Ltd (Switzerland) (RIG)</h3>
+<h3 id="stock-rig">18. Transocean Ltd (Switzerland) (RIG)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Energy / Oil &amp; Gas Production</li>
@@ -671,7 +681,7 @@
 <li>2026-05-05 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1451505/000110465926055235/tm269762d6_8k.htm" target="_blank" rel="noopener">FORM 8-K</a></li>
 <li>2026-05-04 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1451505/000145150526000041/rig-20260504x8k.htm" target="_blank" rel="noopener">8-K</a> - 요약: 10-Q는 분기 실적 보고서이며, 8-K들은 실적 발표나 주요 기업 이벤트를 알리는 수시 공시입니다.</li>
 </ul>
-<h3>19. Aurora Innovation Inc. Class A (AUR)</h3>
+<h3 id="stock-aur">19. Aurora Innovation Inc. Class A (AUR)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Technology / EDP Services</li>
@@ -692,7 +702,7 @@
 <li>2026-05-06 | 10-Q | <a href="https://www.sec.gov/Archives/edgar/data/1828108/000182810826000052/aur-20260331.htm" target="_blank" rel="noopener">10-Q</a></li>
 <li>2026-05-06 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1828108/000182810826000050/aur-20260506.htm" target="_blank" rel="noopener">8-K</a> - 요약: 10-Q는 분기 실적과 재무상태 보고서이고, 8-K는 실적 발표 등 주요 사건을 알리는 공시입니다.</li>
 </ul>
-<h3>20. Upwork Inc. (UPWK)</h3>
+<h3 id="stock-upwk">20. Upwork Inc. (UPWK)</h3>
 <ul>
 <li>거래소: US listed</li>
 <li>섹터/산업: Technology / EDP Services</li>

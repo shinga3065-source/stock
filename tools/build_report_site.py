@@ -369,6 +369,16 @@ def page_shell(title: str, body: str, report_page: bool = False) -> str:
       color: #b91c1c;
       font-weight: 800;
     }}
+    .detail-link {{
+      color: inherit;
+      font-weight: inherit;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }}
+    .detail-link:hover {{
+      color: var(--accent-strong);
+    }}
     .table-wrap {{
       overflow-x: auto;
       border: 1px solid var(--line);
@@ -447,7 +457,9 @@ def markdown_to_html(markdown: str) -> str:
             close_list()
             level = min(len(stripped) - len(stripped.lstrip("#")), 3)
             text = stripped[level:].strip()
-            html_lines.append(f"<h{level}>{parse_inline(text)}</h{level}>")
+            anchor = heading_anchor(level, text)
+            anchor_attr = f' id="{anchor}"' if anchor else ""
+            html_lines.append(f"<h{level}{anchor_attr}>{parse_inline(text)}</h{level}>")
             i += 1
             continue
         if stripped.startswith("- "):
@@ -472,12 +484,22 @@ def markdown_table_to_html(lines: List[str]) -> str:
     thead = "".join(f"<th>{parse_inline(cell)}</th>" for cell in headers)
     body_rows = []
     for row in rows:
+        row_data = {headers[idx]: cell for idx, cell in enumerate(row) if idx < len(headers)}
         cells = "".join(
-            f'<td class="{cell_class(headers[idx] if idx < len(headers) else "", cell)}">{parse_inline(cell)}</td>'
+            table_cell_html(headers[idx] if idx < len(headers) else "", cell, row_data)
             for idx, cell in enumerate(row)
         )
         body_rows.append(f"<tr>{cells}</tr>")
     return f'<div class="table-wrap"><table><thead><tr>{thead}</tr></thead><tbody>{"".join(body_rows)}</tbody></table></div>'
+
+
+def table_cell_html(header: str, cell: str, row_data: dict[str, str]) -> str:
+    class_name = cell_class(header, cell)
+    content = parse_inline(cell)
+    symbol = row_data.get("티커", "").strip()
+    if symbol and header in {"회사", "실적/공시"}:
+        content = f'<a class="detail-link" href="#stock-{slugify_symbol(symbol)}">{content}</a>'
+    return f'<td class="{class_name}">{content}</td>'
 
 
 def split_table_row(line: str) -> List[str]:
@@ -502,6 +524,20 @@ def parse_inline(text: str) -> str:
     escaped = re.sub(r"(?<![\w>])\+\d+(?:\.\d+)?%", r'<span class="positive">\g<0></span>', escaped)
     escaped = re.sub(r"(?<![\w>])-\d+(?:\.\d+)?%", r'<span class="negative">\g<0></span>', escaped)
     return escaped
+
+
+def heading_anchor(level: int, text: str) -> str:
+    if level != 3:
+        return ""
+    match = re.search(r"\(([A-Za-z0-9.\-]+)\)\s*$", text)
+    if not match:
+        return ""
+    return f"stock-{slugify_symbol(match.group(1))}"
+
+
+def slugify_symbol(symbol: str) -> str:
+    slug = re.sub(r"[^a-z0-9]+", "-", symbol.lower()).strip("-")
+    return slug or "detail"
 
 
 def cell_class(header: str, cell: str) -> str:
