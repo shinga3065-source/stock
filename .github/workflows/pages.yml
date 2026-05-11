@@ -9,6 +9,7 @@ on:
       - "site/**"
       - "reports/us_low_price_volume/**"
       - "tools/build_report_site.py"
+      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:

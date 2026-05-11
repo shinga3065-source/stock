@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build-report:
@@ -37,3 +39,16 @@ jobs:
         with:
           commit_message: "Update daily stock report"
           file_pattern: "reports/us_low_price_volume/*.md site/**/*.html site/*.html index.html"
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
