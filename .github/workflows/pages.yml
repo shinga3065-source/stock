@@ -1,6 +1,14 @@
 name: Deploy report site
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - "index.html"
+      - "site/**"
+      - "reports/us_low_price_volume/**"
+      - "tools/build_report_site.py"
   workflow_dispatch:
 
 permissions:
