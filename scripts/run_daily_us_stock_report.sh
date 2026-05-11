@@ -8,4 +8,5 @@ mkdir -p .tmp reports/us_low_price_volume
 
 PYTHON_BIN="${PYTHON_BIN:-python3}"
 
-exec "$PYTHON_BIN" tools/daily_us_stock_report.py --limit 20 --news-days 5
+"$PYTHON_BIN" tools/daily_us_stock_report.py --limit 20 --news-days 5
+"$PYTHON_BIN" tools/build_report_site.py

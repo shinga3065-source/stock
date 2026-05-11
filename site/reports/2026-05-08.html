@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>미국 저가주 거래량 Top 20 뉴스·공시 보고서</title>
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --surface: #ffffff;
+      --ink: #141922;
+      --muted: #5f6b7a;
+      --line: #dfe4ec;
+      --accent: #0f766e;
+      --accent-strong: #0b4f4a;
+      --gain: #047857;
+      --loss: #b91c1c;
+      --shadow: 0 18px 45px rgba(20, 25, 34, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.55;
+    }
+    a { color: var(--accent-strong); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .hero {
+      min-height: 72vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 32px;
+      align-items: end;
+      padding: 72px max(24px, calc((100vw - 1120px) / 2)) 56px;
+      background:
+        linear-gradient(135deg, rgba(15, 118, 110, 0.9), rgba(20, 25, 34, 0.86)),
+        url("https://images.unsplash.com/photo-1642790551116-18e150f248e3?auto=format&fit=crop&w=1600&q=80");
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+    }
+    .eyebrow {
+      margin: 0 0 12px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      opacity: 0.82;
+    }
+    h1 {
+      margin: 0;
+      font-size: 52px;
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+    .lead {
+      max-width: 680px;
+      margin: 20px 0 0;
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.86);
+    }
+    .hero-panel {
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--ink);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+    .panel-label {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .hero-panel strong {
+      display: block;
+      font-size: 30px;
+      margin-bottom: 18px;
+    }
+    .primary-link {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      padding: 0 16px;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+    }
+    .content-band {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 44px 24px 72px;
+    }
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+    .section-heading h2, .report-nav h2 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+    .report-list {
+      display: grid;
+      gap: 10px;
+    }
+    .report-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 72px;
+      padding: 14px 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(20, 25, 34, 0.04);
+    }
+    .report-row small {
+      display: block;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .open-link {
+      color: var(--accent-strong);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .report-layout {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 26px;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .report-nav {
+      position: sticky;
+      top: 24px;
+      align-self: start;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(20, 25, 34, 0.04);
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .report-nav nav {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .report-nav nav a {
+      display: block;
+      padding: 9px 10px;
+      border-radius: 6px;
+      color: var(--muted);
+    }
+    .report-nav nav a.active {
+      background: #e7f4f2;
+      color: var(--accent-strong);
+      font-weight: 700;
+    }
+    .report-document {
+      min-width: 0;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+    }
+    .report-document h1 {
+      color: var(--ink);
+      font-size: 34px;
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+    .report-document h2 {
+      margin-top: 38px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      font-size: 24px;
+    }
+    .report-document h3 {
+      margin-top: 34px;
+      font-size: 20px;
+    }
+    .report-document p, .report-document li {
+      color: #273140;
+    }
+    .report-document table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0 28px;
+      font-size: 14px;
+    }
+    .report-document th, .report-document td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px 9px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .report-document th {
+      position: sticky;
+      top: 0;
+      background: #eef5f4;
+      color: #25313d;
+      font-weight: 800;
+    }
+    .report-document code {
+      background: #f0f3f7;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    .table-wrap table {
+      margin: 0;
+      min-width: 860px;
+    }
+    @media (max-width: 820px) {
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        padding-top: 52px;
+      }
+      h1 { font-size: 38px; }
+      .section-heading { display: block; }
+      .report-layout {
+        grid-template-columns: 1fr;
+        padding: 12px;
+      }
+      .report-nav {
+        position: static;
+      }
+      .report-document {
+        padding: 22px 16px;
+      }
+    }
+  </style>
+</head>
+<body class="report-page">
+  
+        <section class="report-layout">
+          <aside class="report-nav">
+            <a class="back-link" href="../index.html">전체 목록</a>
+            <h2>보고서 날짜</h2>
+            <nav><a class="active" href="2026-05-08.html">2026-05-08</a></nav>
+          </aside>
+          <article class="report-document">
+            <h1>미국 저가주 거래량 Top 20 뉴스·공시 보고서</h1>
+<ul>
+<li>기준 거래일: 2026-05-08</li>
+<li>생성 시각: 2026-05-11 19:09:27 KST</li>
+<li>선정 기준: 미국 정규장 종가 1달러 이상 10달러 이하, 거래량 많은 순</li>
+<li>뉴스/공시 조회 범위: 최근 5일</li>
+</ul>
+<h2>Top 20 요약</h2>
+<div class="table-wrap"><table><thead><tr><th>순위</th><th>티커</th><th>회사</th><th>종가</th><th>거래량</th><th>변동률</th><th>최근 뉴스</th><th>실적/공시</th></tr></thead><tbody><tr><td>1</td><td>AEHL</td><td>Antelope Enterprise Holdings Limited Class A</td><td>$1.20</td><td>315,894,828</td><td>+135.34%</td><td>0</td><td>없음</td></tr><tr><td>2</td><td>RXT</td><td>Rackspace Technology Inc.</td><td>$5.49</td><td>152,258,803</td><td>+55.97%</td><td>4</td><td>있음</td></tr><tr><td>3</td><td>TRAW</td><td>Traws Pharma Inc.</td><td>$2.18</td><td>89,122,316</td><td>+28.24%</td><td>4</td><td>없음</td></tr><tr><td>4</td><td>ABEV</td><td>Ambev S.A. (Each representing 1 Common Share)</td><td>$3.29</td><td>73,517,048</td><td>+0.30%</td><td>0</td><td>없음</td></tr><tr><td>5</td><td>BB</td><td>BlackBerry Limited</td><td>$6.37</td><td>56,590,352</td><td>+4.43%</td><td>4</td><td>있음</td></tr><tr><td>6</td><td>SLNH</td><td>Soluna Holdings Inc.</td><td>$1.83</td><td>54,168,950</td><td>+20.39%</td><td>4</td><td>있음</td></tr><tr><td>7</td><td>EOSE</td><td>Eos Energy Enterprises Inc. Class A</td><td>$8.01</td><td>53,745,991</td><td>+25.94%</td><td>1</td><td>없음</td></tr><tr><td>8</td><td>OPEN</td><td>Opendoor Technologies Inc</td><td>$5.01</td><td>53,681,033</td><td>-5.83%</td><td>4</td><td>있음</td></tr><tr><td>9</td><td>GRAB</td><td>Grab Holdings Limited Class A</td><td>$3.72</td><td>52,324,527</td><td>-1.85%</td><td>0</td><td>없음</td></tr><tr><td>10</td><td>SOUN</td><td>SoundHound AI Inc Class A</td><td>$8.88</td><td>49,135,656</td><td>-7.79%</td><td>1</td><td>있음</td></tr><tr><td>11</td><td>PLUG</td><td>Plug Power Inc.</td><td>$3.12</td><td>45,662,772</td><td>-0.32%</td><td>4</td><td>없음</td></tr><tr><td>12</td><td>ACHR</td><td>Archer Aviation Inc. Class A</td><td>$6.48</td><td>45,513,353</td><td>+3.18%</td><td>1</td><td>없음</td></tr><tr><td>13</td><td>SNAP</td><td>Snap Inc. Class A</td><td>$6.08</td><td>39,960,382</td><td>+1.67%</td><td>4</td><td>있음</td></tr><tr><td>14</td><td>BBAI</td><td>BigBear.ai Inc.</td><td>$4.18</td><td>35,039,277</td><td>+0.24%</td><td>4</td><td>있음</td></tr><tr><td>15</td><td>BTG</td><td>B2Gold Corp Common shares (Canada)</td><td>$5.30</td><td>34,000,298</td><td>+7.07%</td><td>0</td><td>없음</td></tr><tr><td>16</td><td>ONDS</td><td>Ondas Inc.</td><td>$9.06</td><td>33,826,001</td><td>+1.91%</td><td>4</td><td>있음</td></tr><tr><td>17</td><td>KEEL</td><td>Keel Infrastructure Corp.</td><td>$3.97</td><td>31,541,659</td><td>-1.00%</td><td>4</td><td>없음</td></tr><tr><td>18</td><td>RIG</td><td>Transocean Ltd (Switzerland)</td><td>$6.40</td><td>31,206,779</td><td>+3.73%</td><td>3</td><td>있음</td></tr><tr><td>19</td><td>AUR</td><td>Aurora Innovation Inc. Class A</td><td>$7.08</td><td>28,184,389</td><td>-0.84%</td><td>2</td><td>있음</td></tr><tr><td>20</td><td>UPWK</td><td>Upwork Inc.</td><td>$8.82</td><td>26,572,183</td><td>-16.87%</td><td>4</td><td>있음</td></tr></tbody></table></div>
+<h2>회사별 상세</h2>
+<h3>1. Antelope Enterprise Holdings Limited Class A (AEHL)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Industrials / Building Materials</li>
+<li>종가: $1.20</li>
+<li>거래량: 315,894,828</li>
+<li>변동률: +135.34%</li>
+<li>웹사이트: https://www.aehltd.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Antelope Enterprise Holdings Limited holds a 51% ownership position in Hainan Kylin Cloud Services Technology Co. Ltd (&#x27;Kylin Cloud&#x27;), which operates a livestreaming e-commerce business in China. Kylin Cloud provides access to over 800,000 hosts and influencers.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>최근 5일 내 확인된 뉴스 없음 또는 뉴스 수집 실패</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3>2. Rackspace Technology Inc. (RXT)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Technology / Computer Software: Programming, Data Processing</li>
+<li>종가: $5.49</li>
+<li>거래량: 152,258,803</li>
+<li>변동률: +55.97%</li>
+<li>웹사이트: https://www.rackspace.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Rackspace Technology® (NASDAQ: RXT) is the operator of the full enterprise AI stack from governed private cloud to AI inference and agents in production. With an Outcomes-as-a-Service model built on secure infrastructure, data foundations, and forward-deployed engineering, Rackspace delivers business results for regulated and mission-critical industries where governance, sovereignty, and uptime are non-negotiable.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-05-09 01:25 | Benzinga | <a href="https://news.google.com/rss/articles/CBMisgFBVV95cUxQMEpiTGZPT3QzYXRoSzVvMlAxNDBCUzJpTEFhSldtNVp0d3pSLTMtRXlRYXNTd09OeUNkeFdKbUNTM3FEUEp6OGFhdGp2SU53UW5TamxyT1BqaUF1VF9lMHE5eGxWdlo3Ylp1UTY5UnNuRkFfY090MVdJOURfbVVpVVJ6UU9NN0ItaVVpOWljNGFEc3VrWlZZMUludk1hc1VNZ0o0eUhCRU1GUEFKMTRnWE9R?oc=5" target="_blank" rel="noopener">Why Is Rackspace Technology Stock Surging On Friday? - Benzinga</a></li>
+<li>요약: Rackspace Technology Inc. 관련 보도: Why Is Rackspace Technology Stock Surging On Friday?</li>
+<li>2026-05-07 21:00 | Stock Titan | <a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxPelpzTWtoSm52Z0s3MmI5bnZVSno0V0FKVGJadjJqUkFIbEdWVzN5czMtWWtYOTZfcXBrSzdEcnRNZ2xLQWlkSWJDMWgyTzhEUml3SWl3cDFMaVAyV0J1Z1lCZjdLTmhfUUR1M2h4UnpPTnVxcEx4U1JPTC1kOHJkVncxU0p4YlNUOExZWmFjalloZVE3TUVXWTJBMi1HODk1cVRB?oc=5" target="_blank" rel="noopener">Rackspace signs AMD AI deal as public cloud revenue grows 7% - Stock Titan</a></li>
+<li>요약: Rackspace Technology Inc. 관련 보도: Rackspace signs AMD AI deal as public cloud revenue grows 7%</li>
+<li>2026-05-08 16:00 | ChartMill | <a href="https://news.google.com/rss/articles/CBMiXkFVX3lxTE1jUWN6RXUxSklBNVlLeGd5VE1uNVZHeTVsQ1JqYnI3R0ZWZDJfSDRmQkI5Z0R4dERHTTJRYndpN1ptRWFxRzBvcEhfcXpTZEFEeGxnNHkxakFXdkc5cmc?oc=5" target="_blank" rel="noopener">RXT Stock Price, Quote &amp; Chart \| RACKSPACE TECHNOLOGY INC (NASDAQ:RXT) - ChartMill</a></li>
+<li>요약: Rackspace Technology Inc. 관련 보도: RXT Stock Price, Quote &amp; Chart \| RACKSPACE TECHNOLOGY INC (NASDAQ:RXT)</li>
+<li>2026-05-08 16:31 | MSN | <a href="https://news.google.com/rss/articles/CBMif0FVX3lxTFBuNzRwQ1hEZEtMTHFOSjFVd3dyODJnQ3RydW9fNGhBRFZjXzhINWxxcm5fSDRJZFg4OEpLRHFEWXl5MmNmeXJmeDJ2R0d2R3NZY2czT3M1aWEyaTJPWHhYTVQxdGduREFHWlpDUWN3VDZkTjlCd19YMDNiR0hscDg?oc=5" target="_blank" rel="noopener">Rackspace Technology, Inc. (RXT) - MSN</a></li>
+<li>요약: Rackspace Technology Inc. 관련 보도: Rackspace Technology, Inc. (RXT)</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>2026-05-08 | 10-Q | <a href="https://www.sec.gov/Archives/edgar/data/1810019/000181001926000044/rxt-20260331.htm" target="_blank" rel="noopener">10-Q</a></li>
+<li>2026-05-07 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1810019/000181001926000041/rxt-20260507.htm" target="_blank" rel="noopener">8-K</a></li>
+</ul>
+<h3>3. Traws Pharma Inc. (TRAW)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Health Care / Biotechnology: Pharmaceutical Preparations</li>
+<li>종가: $2.18</li>
+<li>거래량: 89,122,316</li>
+<li>변동률: +28.24%</li>
+<li>웹사이트: https://www.trawspharma.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Traws Pharma is a clinical stage biopharmaceutical company dedicated to developing novel therapies to target critical threats to human health in respiratory viral diseases. Traws integrates antiviral drug development, medical intelligence and regulatory strategy to meet real world challenges in the treatment of viral diseases. We are advancing novel investigational oral small molecule antiviral agents that have potent activity against difficult to treat or resistant virus strains that threaten human health: COVID-19/Long COVID and bird flu and seasonal influenza. Ratutrelvir is in development as a ritonavir-independent COVID treatment, targeting the Main protease (Mpro or 3CL protease). Tivoxavir marboxil is in development as a single dose treatment for bird flu and seasonal influenza, targeting the influenza cap-dependent endonuclease (CEN). Traws is actively seeking development and...</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-05-08 20:30 | Stock Titan | <a href="https://news.google.com/rss/articles/CBMitwFBVV95cUxQSGZyUnM5ZWI3YVFYNk1zOE1NdzBnRGVvNnY2ZTY1SUxtNjhWUDR3VlFNM0RRa1J3MEw2ZU5aNUJOdmVHbzN1eUV3V1g4QlJxa3F1SXNfaXZOazl4d3BIT3VYSWNXWGpkbk9LRDlHRndVZ2s3OGpRX2pTSENWc3I4TzRsRDZmTlUtcUxLazNheHV1Yk9tX3JtdHk2Z3VmTTNiMDg3OW5QMldJekE0Nm4yTFI4cVlpZHc?oc=5" target="_blank" rel="noopener">No approved hantavirus treatment; Traws plans drug push - Stock Titan</a></li>
+<li>요약: Traws Pharma Inc. 관련 보도: No approved hantavirus treatment; Traws plans drug push</li>
+<li>2026-05-08 23:04 | StocksToTrade | <a href="https://news.google.com/rss/articles/CBMieEFVX3lxTE0yQWtDVE1ZSVN1dlYtMmI4cUZYYVVPcWY3a2d2V3hjVWpCRzltZ05lYlFlcVd3TnJQZUhDZ2c5OVhnbGFuNEJ0ZGJHdGVRUHl0Ym9YVExOLTBmcHBUallNY3lSeFp1YXFGYjVHRHRWWVF0bFM0UmdtMA?oc=5" target="_blank" rel="noopener">TRAW Stock Jumps As Traders Zero In On Momentum And Cash Runway - StocksToTrade</a></li>
+<li>요약: Traws Pharma Inc. 관련 보도: TRAW Stock Jumps As Traders Zero In On Momentum And Cash Runway</li>
+<li>2026-05-08 09:29 | TradingView | <a href="https://news.google.com/rss/articles/CBMipwFBVV95cUxQN2dwWEF2cWtNMldQUHR4MGJYVk9QVkFCaUMxWm85aGg5WXNzYUw4NWpWeUVZUzhQRXZwRU5XdzJBT0xBM2JUdEpRcmYxaWkzWEtKMERNMUk5NWxzTVJLRnlqenlyWlIzOUJJRElFcHowa3lxQ2VFOS1PRy1ROWFsRlJrU3BnWmpEelpaRlJXdGhRZ1NYY0tnQlZVQ24yUllEZk9ZbHRVZw?oc=5" target="_blank" rel="noopener">Number of shareholders of Traws Pharma, Inc. – NASDAQ:TRAW - TradingView</a></li>
+<li>요약: Traws Pharma Inc. 관련 보도: Number of shareholders of Traws Pharma, Inc. – NASDAQ:TRAW</li>
+<li>2026-05-08 22:18 | timothysykes.com | <a href="https://news.google.com/rss/articles/CBMifEFVX3lxTFA1VVlhdVRhU2d4V1RBVzJoRUh0ZWpWX2M3RWZDcWZaTzkwVExUN3lJdF9oMzdHUU9QMEdZQTdZUENyX1RRU3NtSTQ5aEdwUDFrNGFFWlprWkt2WXotS1dtRnRSYmUwOC1xZFd6UkttR1d1bThxdUNmUnFkSnA?oc=5" target="_blank" rel="noopener">TRAW Stock Pops On Volatile Run As Traders Eye Breakout - timothysykes.com</a></li>
+<li>요약: Traws Pharma Inc. 관련 보도: TRAW Stock Pops On Volatile Run As Traders Eye Breakout</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3>4. Ambev S.A. (Each representing 1 Common Share) (ABEV)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Consumer Staples / Beverages (Production/Distribution)</li>
+<li>종가: $3.29</li>
+<li>거래량: 73,517,048</li>
+<li>변동률: +0.30%</li>
+<li>웹사이트: https://www.ambev.com.br</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Ambev is the largest brewer in Latin America by volume and the fourth- largest beer producer in the world. It produces, distributes, and sells beer and PepsiCo products in Brazil and other Latin American countries. It also owns Argentina&#x27;s largest brewer, Quinsa. Ambev was formed in 1999 through the merger of Brazil&#x27;s two largest beverage companies, Brahma and Antarctica. In 2004, Ambev combined with Canadian brewer Labatt, giving Interbrew (now Anheuser-Busch InBev) a controlling interest.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>최근 5일 내 확인된 뉴스 없음 또는 뉴스 수집 실패</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3>5. BlackBerry Limited (BB)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Technology / Computer Software: Prepackaged Software</li>
+<li>종가: $6.37</li>
+<li>거래량: 56,590,352</li>
+<li>변동률: +4.43%</li>
+<li>웹사이트: https://www.blackberry.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>BlackBerry (NYSE:BB)(TSX:BB) provides enterprises and governments the intelligent software and services that power the world around us. Based in Waterloo, Ontario, the company&#x27;s high-performance foundational software enables major automakers and industrial giants alike to unlock transformative applications, drive new revenue streams and launch innovative business models, all without sacrificing safety, security, and reliability. With a deep heritage in Secure Communications, BlackBerry delivers operational resiliency with a comprehensive, highly secure, and extensively certified portfolio for mobile fortification, mission-critical communications, and critical events management.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-05-08 22:20 | Benzinga | <a href="https://news.google.com/rss/articles/CBMiogFBVV95cUxPQ3V0THNaeVpBVHR5ZWFqX3FWakZtcXgtYzVOTDhzdWQyTEtwczhnRFd6SWZ0M09JNUk2bkJ0Z2Jrd09OZWZTWmlMbk5ZeWhXZDN6RFlyT0FLMjNsNUMwd0Rmd01zb2RpZkZ2SW1Qa1F0cUNIYVFnMWlWOEZTQ1hqNnRJM3lUdHU3czZNbkw5RHlMbVhNM3V2Z0NUZ1dnYVhmSXc?oc=5" target="_blank" rel="noopener">What&#x27;s Going On With BlackBerry Stock Friday? - Benzinga</a></li>
+<li>요약: BlackBerry Limited 관련 보도: What&#x27;s Going On With BlackBerry Stock Friday?</li>
+<li>2026-05-11 04:23 | TechStock² | <a href="https://news.google.com/rss/articles/CBMimwFBVV95cUxOY2hBdkxPSmZFbHltcGdEWEZtLXVnSzc3M3lGcWJyUzczTUZRRkktS1hEazJCN19taFpvbGxCbTdldWF2UTRRck8tWFlqQ2k3aEdWN0taSDZoLVJ6SUpkZFB2d0c2YXJPTjBIWFFLZUI3aVpDVTQxWHRPM2p4U21wN1dqY2NtakxKS3Y1U2xYMlpVVXVQZUFsdzNKSQ?oc=5" target="_blank" rel="noopener">BlackBerry Stock Rally Faces New Test as 26.8 Million-Share Buyback Starts - TechStock²</a></li>
+<li>요약: BlackBerry Limited 관련 보도: BlackBerry Stock Rally Faces New Test as 26.8 Million-Share Buyback Starts</li>
+<li>2026-05-09 05:04 | StocksToTrade | <a href="https://news.google.com/rss/articles/CBMieEFVX3lxTE5hUTI3SU1uNFhMQXhDbE83YlQzcGN4c0phTzRfakVDUG12RnlEWl9PU3l6TGRLQ3BjNDdoX2pFSWJ6Wnl5ZU5kZkIxekcweHZIX1hjb0ZFNGVlUDU5aDZfb3VEQUVoNmMtQ3lUeGJBeGpiSUg4c21peg?oc=5" target="_blank" rel="noopener">BlackBerry Stock Jumps As QNX, Earnings Beat Fuel Turnaround - StocksToTrade</a></li>
+<li>요약: BlackBerry Limited 관련 보도: BlackBerry Stock Jumps As QNX, Earnings Beat Fuel Turnaround</li>
+<li>2026-05-08 21:06 | Stock Titan | <a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxNR0VycWhIanZkN29FRmk1Q013ZHZXaGVMMW81WWt5Q0tEMkw5eXBIbHRNOUdDc3g0bngyd01XSUNLdEdSNEY4d0d1Uy0zV3laaHY1dTFkemZVWHNRMUVydXliUnVzU01RdmJ0a3BOcF9QbHh1MVUwQVJhX0NtS1RkYm02aV9oeVdOVDE1ZmZvV3ZuUE5BUnZ3Wi1KVjY3MUpFTmEw?oc=5" target="_blank" rel="noopener">[8-K] BLACKBERRY Ltd Reports Material Event - Stock Titan</a></li>
+<li>요약: BlackBerry Limited 관련 보도: [8-K] BLACKBERRY Ltd Reports Material Event</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>2026-05-08 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1070235/000107023526000051/bbry-20260508.htm" target="_blank" rel="noopener">8-K</a></li>
+</ul>
+<h3>6. Soluna Holdings Inc. (SLNH)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Technology / EDP Services</li>
+<li>종가: $1.83</li>
+<li>거래량: 54,168,950</li>
+<li>변동률: +20.39%</li>
+<li>웹사이트: https://www.solunacomputing.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Soluna is on a mission to make renewable energy a global superpower, using computing as a catalyst. The Company designs, develops, and operates digital infrastructure that transforms surplus renewable energy into global computing resources. Soluna&#x27;s pioneering data centers are strategically co-located with wind, solar, or hydroelectric power plants to support high-performance computing applications, including Bitcoin Mining, Generative AI, and other compute-intensive applications. Soluna&#x27;s proprietary software MaestroOS() helps energize a greener grid while delivering cost-effective and sustainable computing solutions and superior returns.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-05-08 02:28 | Yahoo Finance | <a href="https://news.google.com/rss/articles/CBMipwFBVV95cUxNMjNtWFdBUklKZXJJMWNFcE9feTRFQ09tR2tWTzVSZVlaUWZYR3RBYWFtdVAxUE9Ia0dhak1FbkJSWjhxaWc2RjU5dTlrSUtlZENsdkdaUU0xbHpjeU5yOXZqVUhHSGRTb2l2QzlSNS1HUlJBN0JRc1BTMzROMHBKSVpULWpmOUR5cUtGUXFJazVJU0RmdUVKZ3NmcVJsVXVLNjhvRkZpWQ?oc=5" target="_blank" rel="noopener">Soluna Holdings (SLNH) Regains Compliance With Nasdaq - Yahoo Finance</a></li>
+<li>요약: Soluna Holdings Inc. 관련 보도: Soluna Holdings (SLNH) Regains Compliance With Nasdaq</li>
+<li>2026-05-07 20:30 | Stock Titan | <a href="https://news.google.com/rss/articles/CBMikgFBVV95cUxOMTJpOWF4RzUtbVZEb3BIVzdfV01yRjhxdHNjZ0FkbHdPN0o2MWpUY1J0MDc2NjFVeHdsVGJZR0V5OThncUI3aW0ycEk1Rml6MDU5RjJkc1V5UmQ5M3RLZ1VzRVRZTWlKclpGYnhpd1RRUkQ4MUVZOWVFYmtXYUpUcWpHcVpNd0gzemJ6R01EcHNvdw?oc=5" target="_blank" rel="noopener">Soluna buys wind farm, starts design work on 300+ MW AI site - Stock Titan</a></li>
+<li>요약: Soluna Holdings Inc. 관련 보도: Soluna buys wind farm, starts design work on 300+ MW AI site</li>
+<li>2026-05-08 01:32 | StocksToTrade | <a href="https://news.google.com/rss/articles/CBMifEFVX3lxTFB4VkxDTFg5M2Naa3puYk5xQkVCTkpkRDJ5SFc5RVdXaHlUUWZ2NjQzejJNeElmTXg3anAxdlpJR0tGdmpTbUpscTFFN2xVR1JGVm1PUGZYVk9QYXBmb0o2VzBuOXh6UVFWTmp1VkFFN0xrdWp6YUx1d0trd0k?oc=5" target="_blank" rel="noopener">SLNH Stock Under Pressure As New Resale Filings Hit Float - StocksToTrade</a></li>
+<li>요약: Soluna Holdings Inc. 관련 보도: SLNH Stock Under Pressure As New Resale Filings Hit Float</li>
+<li>2026-05-07 03:33 | timothysykes.com | <a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxNcVl5UUNaSXZJUUdQdFNYeS1rVlNJYmpoV1Z3eElmVFpNUnhFb2VtRWtjTWlnOEZKSFBSOWoxUjJXWk0xZTdrVm5OUWpORURnTjlCNDQ5b2lsc3F6VmhhUVBFcjBwU1laRzlLcW9VeFN6WnJJWElUbXNtNU0ycXRhcA?oc=5" target="_blank" rel="noopener">SLNH Stock Rebounds As Soluna Pushes AI And Wind-Powered Growth - timothysykes.com</a></li>
+<li>요약: Soluna Holdings Inc. 관련 보도: SLNH Stock Rebounds As Soluna Pushes AI And Wind-Powered Growth</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>2026-05-07 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/64463/000149315226021610/form8-k.htm" target="_blank" rel="noopener">8-K</a></li>
+</ul>
+<h3>7. Eos Energy Enterprises Inc. Class A (EOSE)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Miscellaneous / Industrial Machinery/Components</li>
+<li>종가: $8.01</li>
+<li>거래량: 53,745,991</li>
+<li>변동률: +25.94%</li>
+<li>웹사이트: https://www.eose.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Eos is accelerating the shift to American energy independence with positively ingenious solutions that transform how the world stores power. The Company&#x27;s BESS features the innovative Znyth technology, a proven chemistry with readily available non-precious earth components, that is the pre-eminent safe, non-flammable, secure, stable, and scalable alternative to conventional technology. The Company&#x27;s BESS is ideal for utility-scale, microgrid, commercial, and industrial long-duration energy storage applications (i.e., 4 to 16+ hours) and provides customers with significant operational flexibility to cost effectively address current and future increased grid demand and complexity.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-05-09 04:07 | CNN | <a href="https://news.google.com/rss/articles/CBMiUEFVX3lxTE9qcWNKZVpOanc0dGtfcTJLdGtydS1QWkhLQ2tIU1lBX0dQb2dUUFRMbTlvV25EMGI5QkhrU1RSUWQ4ejY3ajFKTWRRSjYyYml0?oc=5" target="_blank" rel="noopener">EOSE Stock Quote Price and Forecast - CNN</a></li>
+<li>요약: Eos Energy Enterprises Inc. Class A 관련 보도: EOSE Stock Quote Price and Forecast</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3>8. Opendoor Technologies Inc (OPEN)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Finance / Real Estate</li>
+<li>종가: $5.01</li>
+<li>거래량: 53,681,033</li>
+<li>변동률: -5.83%</li>
+<li>웹사이트: https://www.opendoor.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Opendoor&#x27;s mission is to tilt the world in favor of homeowners, by making homeownership simpler, faster, and fairer for everyone. Since 2014, the Company has provided people across the U.S. with a simpler, more certain way to sell and buy a home. Opendoor currently operates in markets nationwide.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-05-08 05:14 | Stock Titan | <a href="https://news.google.com/rss/articles/CBMitAFBVV95cUxPZWROX3RjLVg1bnRVSE1JRkJTemhLXzdrb2JsTFFCVGpfd0g2WmI1SlNVMDNlSUJRaDVEN2xQRVppZ1BnY3ZPS1M4ckNoRkMyN182Ujh3QmUyNk56R0Q4OU9weF9jLVBaTWU2Rllib0I5V3VvSkwyaG1PLUdPVXJFWG9EYnNqSC1DY1pfX1VlSEZpalZwcUlIOEJiQm5pZ2ZENGJNNF9HQWkyRTRad0NOeUxPSW4?oc=5" target="_blank" rel="noopener">Opendoor (NASDAQ: OPEN) narrows adjusted losses as Q1 2026 margins and inventory efficiency improve - Stock Titan</a></li>
+<li>요약: Opendoor Technologies Inc 관련 보도: Opendoor (NASDAQ: OPEN) narrows adjusted losses as Q1 2026 margins and inventory efficiency improve</li>
+<li>2026-05-08 08:05 | Yahoo Finance | <a href="https://news.google.com/rss/articles/CBMipgFBVV95cUxNUlE0Vm5BcjVaQnM5M2t5T0RCYnNjNXNmYmlpazN2WTRRNnJ4Z1dnMDV0UXN2SEhBSFNoSXJfbmFya1lEYTFacWx0NVJOY09jcUN6X3JFMl92dHJfRzFodjZQS0Y2LWxYQWM3bmN6b3FRSGtrZlBYLWdULTF5SGM5UE1zZVlsNTJPTmhzX2N1T25uOEgtLXc1Q0s5ZGQ4ZUFLdlBMUmVR?oc=5" target="_blank" rel="noopener">Opendoor Technologies Inc. (OPEN) Reports Q1 Loss, Tops Revenue Estimates - Yahoo Finance</a></li>
+<li>요약: Opendoor Technologies Inc 관련 보도: Opendoor Technologies Inc. (OPEN) Reports Q1 Loss, Tops Revenue Estimates</li>
+<li>2026-05-08 22:20 | TradingView | <a href="https://news.google.com/rss/articles/CBMi4AFBVV95cUxQdGdZQUEwWVZsOXZPTUkzb0U2UVk4dHUtTTBBVVdlN19sWWNxMXlVUVN2WGN4VnVZVEN0RGs0U3FYcV9xbG96Q3BKWi1FSTFBV21lNkNjRkZLYXRhQUltcFFIZFVYOEpwQ3JMQVk5ZURuVFQ4VTlQODlGdDU5UVkwbThRRk9zc0pmUWpBYzVZVE5tbkx6bEdDcVFfbGtTLUNDT1BvZ1dFcXlsMHFhRGNjV3ZmUkxfd2FwSjlOMVllaWJCVlE5Q0hGeVl0dVBBenNhQ0Y0N091MWFTekhhNzdIeQ?oc=5" target="_blank" rel="noopener">Opendoor Technologies Inc Stock 12‑Month Price Target Cut to $4.79, Implies 10% Downside - TradingView</a></li>
+<li>요약: Opendoor Technologies Inc 관련 보도: Opendoor Technologies Inc Stock 12‑Month Price Target Cut to $4.79, Implies 10% Downside</li>
+<li>2026-05-08 06:12 | Seeking Alpha | <a href="https://news.google.com/rss/articles/CBMivAFBVV95cUxQdWhnVkt3Z2NwRWQ3YVpYM1NqYkhHRExQV1ItUXVQcngxOGtyVTVFMncxb1RJc1doeGV3ZVJxQmhINEl3UXB0bTBRXzVKdGxUX1NUVk1VLUxyYXZMOEgtR2hNVzdBYUdBRm5PR1h4c3NnNDc1eTd3QS0xUVhmRlk1MEJTN0s0YjZPOWtQUk1LY20wdjRnaXpjbmkwbW1yM2NpS2k0NHg0MkM3bWNrNDhXQ1hyNWpScTgyWm1Fcw?oc=5" target="_blank" rel="noopener">Opendoor stock advances as adjusted EBITDA run rate turns profitable as of April 1 (OPEN:NASDAQ) - Seeking Alpha</a></li>
+<li>요약: Opendoor Technologies Inc 관련 보도: Opendoor stock advances as adjusted EBITDA run rate turns profitable as of April 1 (OPEN:NASDAQ)</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>2026-05-07 | 10-Q | <a href="https://www.sec.gov/Archives/edgar/data/1801169/000180116926000014/open-20260331.htm" target="_blank" rel="noopener">10-Q</a></li>
+<li>2026-05-07 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1801169/000180116926000013/open-20260507.htm" target="_blank" rel="noopener">8-K</a></li>
+</ul>
+<h3>9. Grab Holdings Limited Class A (GRAB)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Real Estate / Real Estate</li>
+<li>종가: $3.72</li>
+<li>거래량: 52,324,527</li>
+<li>변동률: -1.85%</li>
+<li>웹사이트: https://www.grab.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Grab is a leading superapp in Southeast Asia, operating across the deliveries, mobility and digital financial services sectors. Serving over 800 cities in eight Southeast Asian countries - Cambodia, Indonesia, Malaysia, Myanmar, the Philippines, Singapore, Thailand and Vietnam - Grab enables millions of people everyday to order food or groceries, send packages, hail a ride or taxi, pay for online purchases or access services such as lending and insurance, all through a single app. We operate supermarkets in Malaysia under Jaya Grocer and Everrise, which enables us to bring the convenience of on-demand grocery delivery to more consumers in the country. As part of our financial services offerings, we also provide digital banking services through GXS Bank in Singapore and GXBank in Malaysia. Grab was founded in 2012 with the mission to drive Southeast Asia forward by creating economic...</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>최근 5일 내 확인된 뉴스 없음 또는 뉴스 수집 실패</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3>10. SoundHound AI Inc Class A (SOUN)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Technology / Computer Software: Prepackaged Software</li>
+<li>종가: $8.88</li>
+<li>거래량: 49,135,656</li>
+<li>변동률: -7.79%</li>
+<li>웹사이트: https://www.soundhound.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>SoundHound AI is a voice and agentic AI company that enables businesses to deliver natural, end-to-end conversational experiences across digital and physical channels, including phones, kiosks, chat, smart devices, drive-thrus, TVs, in-vehicle, and more. Its agentic platform, OASYS, is a self-learning, orchestrated AI system where organizations can build and deploy conversational AI agents to handle transactions, tasks, and workflows on behalf of customers and employees. Built on proprietary technology backed by 400+ patents and years of AI research, SoundHound serves leading brands across industries including automotive, financial services, healthcare, retail, telecommunications, and more. It powers millions of products and processes billions of interactions annually for enterprise customers worldwide. Learn more at: www.soundhound.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-05-09 00:56 | CNN | <a href="https://news.google.com/rss/articles/CBMiUEFVX3lxTE42aWlTUUFVUE9OU01xQjNoYTNiM2JLTU85cWNaRkJKbDE5aml1QWY4bFlNc1V6VW1rcUg2RWtqUUZqaW1Na0pGeW9QTWQxTUZu?oc=5" target="_blank" rel="noopener">SOUN Stock Quote Price and Forecast - CNN</a></li>
+<li>요약: SoundHound AI Inc Class A 관련 보도: SOUN Stock Quote Price and Forecast</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>2026-05-07 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1840856/000184085626000012/soun-20260507.htm" target="_blank" rel="noopener">8-K</a></li>
+</ul>
+<h3>11. Plug Power Inc. (PLUG)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Energy / Industrial Machinery/Components</li>
+<li>종가: $3.12</li>
+<li>거래량: 45,662,772</li>
+<li>변동률: -0.32%</li>
+<li>웹사이트: https://www.plugpower.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Plug Power is building the global hydrogen economy with a fully integrated ecosystem spanning production, storage, delivery, and power generation. A first mover in the industry, Plug provides electrolyzers, liquid hydrogen, fuel cell systems, storage tanks, and fueling infrastructure to industries such as material handling, industrial applications and energy producers-advancing energy independence and decarbonization at scale. With electrolyzers deployed across five continents, Plug leads in hydrogen production, delivering large-scale projects that redefine industrial power. The Company has deployed over 74,000 fuel cell systems and 285 fueling stations and is the largest user of liquid hydrogen. Plug is rapidly expanding its generation network to ensure a reliable, domestically produced hydrogen supply. With plants operational in Georgia, Tennessee, and Louisiana, Plug Power&#x27;s total...</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-05-11 06:39 | TechStock² | <a href="https://news.google.com/rss/articles/CBMilgFBVV95cUxNenc5OHczNklOWG5yYTItdEJIMkVlX3VqUjBwbkw5RXNCb2U5X01UbUxvNmloTDJ5ZHZFOGpxRVR4YU9uVmlKak5GbHRYcFRxWG1GR0ticnZKNWExTm80Qnk5SENEQUVMT3NzMS1FNDJFanc2b1l2b1cwUjktQ2o5N0ZuUDhmY3g0Sm52eXlZSk9GS0dBT1E?oc=5" target="_blank" rel="noopener">Plug Power Stock Faces a Crucial Q1 Earnings Test After Hydrogen Rally - TechStock²</a></li>
+<li>요약: Plug Power Inc. 관련 보도: Plug Power Stock Faces a Crucial Q1 Earnings Test After Hydrogen Rally</li>
+<li>2026-05-07 22:00 | Yahoo Finance | <a href="https://news.google.com/rss/articles/CBMimgFBVV95cUxPak9SZGNPWHcxajhxaG1Qeko0ZGprNzItSHBlS3pRQ0tVRHQ4ekYwQS1iMEJldzFSYTdvR0UxOUVQYS1vSEhTUVRXOEowMndXcE5Ka09hVzJKd0FEdk1EejlHOHZvTWZYX2VUcUZyN1dCUi1GbWJjMng0TzdQQTZQdWw4WGRmYm9zcEFRTHA0eDcwRl9fZGJiVVF3?oc=5" target="_blank" rel="noopener">Is Most-Watched Stock Plug Power, Inc. (PLUG) Worth Betting on Now? - Yahoo Finance</a></li>
+<li>요약: Plug Power Inc. 관련 보도: Is Most-Watched Stock Plug Power, Inc. (PLUG) Worth Betting on Now?</li>
+<li>2026-05-09 08:59 | Benzinga | <a href="https://news.google.com/rss/articles/CBMiS0FVX3lxTFBmZ01VcEJjU0FVMmNMZHpDNUUzR0gwQ3V2bTMwQkcwNHpHQnJTXzIwU0twLS1kZ1lLZU9WSWdWR2pnRHpIbGdKOS00Zw?oc=5" target="_blank" rel="noopener">Plug Power Inc (PLUG) Stock Price, Quote, News &amp; History - Benzinga</a></li>
+<li>요약: Plug Power Inc. 관련 보도: Plug Power Inc (PLUG) Stock Price, Quote, News &amp; History</li>
+<li>2026-05-07 16:00 | ChartMill | <a href="https://news.google.com/rss/articles/CBMiX0FVX3lxTE1qbTV0MlR4Z1ZJTm00TDVnZk1lWXdwX0pvOWNweUVTUTZiQUFjd0RPT2pfQ2lVVGZELUh5c3FvelhiUi1pREtWd1NYT0phZy03Qm4zNmVSQVgwV2tZeEpn?oc=5" target="_blank" rel="noopener">PLUG Stock Price, Quote &amp; Chart \| PLUG POWER INC (NASDAQ:PLUG) - ChartMill</a></li>
+<li>요약: Plug Power Inc. 관련 보도: PLUG Stock Price, Quote &amp; Chart \| PLUG POWER INC (NASDAQ:PLUG)</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3>12. Archer Aviation Inc. Class A (ACHR)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Industrials / Aerospace</li>
+<li>종가: $6.48</li>
+<li>거래량: 45,513,353</li>
+<li>변동률: +3.18%</li>
+<li>웹사이트: https://www.archer.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Archer is designing and developing the key enabling technologies and aircraft necessary to power the future of aviation.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-05-08 17:44 | Stock Traders Daily | <a href="https://news.google.com/rss/articles/CBMizwFBVV95cUxPTjAyWmJsSHBxWjhBNmpTNkJWa2pzOGJDbUxRMUJSMmxQWjJXZ2xHTWI1a21QbUsxZWdSQU82ejhvRmN2b29sUEJ6RnpIdUJpYVRzRnY3aTJLZTF6UjBmelU0YzFUNDIzRzY5VXNlc0g4SHJOQ0dTOUhRRDZ2b2xxVmFLNE5TNjB1dFFQbW9wbkk3M1lLN1dDUndndzJ3ZklpN0lIUmFjYkctZkx1UnlNM1AyakpaSHM4RnJFU0pwU1Zpei1ReUJYR1pDNE1HR28?oc=5" target="_blank" rel="noopener">Why (ACHR) Price Action Is Critical for Tactical Trading - Stock Traders Daily</a></li>
+<li>요약: Archer Aviation Inc. Class A 관련 보도: Why (ACHR) Price Action Is Critical for Tactical Trading</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3>13. Snap Inc. Class A (SNAP)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Technology / Computer Software: Programming, Data Processing</li>
+<li>종가: $6.08</li>
+<li>거래량: 39,960,382</li>
+<li>변동률: +1.67%</li>
+<li>웹사이트: https://www.snap.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Snap Inc. is a technology company. We believe the camera presents the greatest opportunity to improve the way people live and communicate. Snap contributes to human progress by empowering people to express themselves, live in the moment, learn about the world, and have fun together. Snap Inc. operates Snapchat, a visual messaging app that enhances your relationships with friends, family, and the world, and Specs Inc., a wholly-owned subsidiary dedicated to making computing more human, in addition to Bitmoji, Saturn, and other digital services. For more information, visit snap.com.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-05-11 14:04 | Stock Traders Daily | <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxNTkxtU3ozU2pwWjRwUzRRVzlVbFlsVkllS2FHbS02N1kwcVlYSmt1czQ1VjVMN0ExNmM5OTl2MTVEaHdYcWZZbVhodUVieV84YWQwalRZNWIxWHBvalJJOTZiMHZObU03cElqcU9aUVdpcG5ZZTZfek5xVjVja0lsWi1NTktyMk8zMVpKZjB1NjdtOVRPYlpxR2lObTRob0d5eFJTcGd1eWFKWUxRaDE4UmxDSVJkMHVPNEp3LTBnam9ZY1BRRklhRFRXTQ?oc=5" target="_blank" rel="noopener">(SNAP) Price Dynamics and Execution-Aware Positioning - Stock Traders Daily</a></li>
+<li>요약: Snap Inc. Class A 관련 보도: (SNAP) Price Dynamics and Execution-Aware Positioning</li>
+<li>2026-05-09 09:44 | StocksToTrade | <a href="https://news.google.com/rss/articles/CBMiTkFVX3lxTE1aVmh0em1pWVVpS1I0VEdocXo1SkFtVC1lNC1aMXBrZ3djMUdqWDVpWWwzeU9fS3JvcEQwb1V5Q2lxVHhlS25JM1VHVUppQQ?oc=5" target="_blank" rel="noopener">Snap Inc. Class A (SNAP) Stock Price \| Live Quotes &amp; Charts \| NYSE - StocksToTrade</a></li>
+<li>요약: Snap Inc. Class A 관련 보도: Snap Inc. Class A (SNAP) Stock Price \| Live Quotes &amp; Charts \| NYSE</li>
+<li>2026-05-07 11:11 | Morningstar | <a href="https://news.google.com/rss/articles/CBMirAFBVV95cUxPZDhFWEF4WkN6V2I4V0lIWTlOZUpwSXF3dHFEVnc5ZDRPNzF0RExiRXdWUWMtUnpnVW1UdlFlSEp5dXBIMHdjcElYWTlXS2F4ZWxQOXd0XzBwRm8wOEhFcml0QzhDemF4cVNmdm55UnZIcV85MjJNclBGZEFSU0owLWNoekQtcWpMcGRZOVNMOU1GNGFOcVJrdTZ3VjFlVUZKQ0FnSnBZbHlobkFl?oc=5" target="_blank" rel="noopener">Snap Is a Small Fish in a Large Digital Advertising Pond - Morningstar</a></li>
+<li>요약: Snap Inc. Class A 관련 보도: Snap Is a Small Fish in a Large Digital Advertising Pond</li>
+<li>2026-05-07 12:00 | Morningstar | <a href="https://news.google.com/rss/articles/CBMi4gFBVV95cUxOcVNtWEZEWnNoajNsbS1NMl9NalJHU3JsaktmX1gxRmxqRFphTGJTYlFIN29KOXVPaFlpNlZzajdCYjZzR0ZReTNTX1dqTWNLTFpLRWxvQWdrWWpJWFdNMjlkcGxJNThGWUtNSlRaeEpZRWRMMXRqaWtoRkRMUFY3NGF1M3JERDd6UXBzX0oyMGIwS1NTRUl0WHB4YUtUTlBjRmg3NmRVcmxHRTYwd0VERzlzbmVDbXdST1NpRko2SXFCU2pBNHJxa092TkhpdWdlOWRVNEQ5dEIxekRUZktPRjJR?oc=5" target="_blank" rel="noopener">Snap Earnings: Poor Start to Fiscal 2026 as User Counts in USA Shrink; Fair Value Down to $7 From $9 - Morningstar</a></li>
+<li>요약: Snap Inc. Class A 관련 보도: Snap Earnings: Poor Start to Fiscal 2026 as User Counts in USA Shrink; Fair Value Down to $7 From $9</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>2026-05-07 | 8-K/A | <a href="https://www.sec.gov/Archives/edgar/data/1564408/000119312526212461/d135064d8ka.htm" target="_blank" rel="noopener">8-K/A</a></li>
+<li>2026-05-07 | 10-Q | <a href="https://www.sec.gov/Archives/edgar/data/1564408/000156440826000027/snap-20260331.htm" target="_blank" rel="noopener">10-Q</a></li>
+<li>2026-05-06 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1564408/000156440826000024/snap-20260506.htm" target="_blank" rel="noopener">8-K</a></li>
+</ul>
+<h3>14. BigBear.ai Inc. (BBAI)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Technology / Computer Software: Prepackaged Software</li>
+<li>종가: $4.18</li>
+<li>거래량: 35,039,277</li>
+<li>변동률: +0.24%</li>
+<li>웹사이트: https://www.bigbear.ai</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>BigBear.ai is a specialized defense technology company, developing and deploying mission-ready AI solutions and services. Customers and partners rely on BigBear.ai&#x27;s artificial intelligence and predictive analytics capabilities in highly complex, distributed, mission-based operating environments. Headquartered in McLean, Virginia, BigBear.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-05-09 09:44 | StocksToTrade | <a href="https://news.google.com/rss/articles/CBMiTkFVX3lxTE50NXhzTHU5NjNtb1BTTWJ6UjhIc0tObFdDUHVYMnRxZHlTdDdTSjdaWUtkYnJTVERud3k5WHVKX0JrcDducXZiYVhCWGh0Zw?oc=5" target="_blank" rel="noopener">BigBear.ai Inc. (BBAI) Stock Price \| Live Quotes &amp; Charts \| NYSE - StocksToTrade</a></li>
+<li>요약: BigBear.ai Inc. 관련 보도: BigBear.ai Inc. (BBAI) Stock Price \| Live Quotes &amp; Charts \| NYSE</li>
+<li>2026-05-07 03:33 | timothysykes.com | <a href="https://news.google.com/rss/articles/CBMieEFVX3lxTE5yNTdIMWRWX0hORC1Jb3hrT2xLbkU2SkxaeDR6ZkJsQ2pGX3JLdEtIUDlMREFEUU8tYzJod1VUMng2VlluUURDU0VOZ2xPdklJTzVtcW1Ta0ZBODYtU0tiNG45dmhweXZJYUpjOUI0S1poMTA3dUcwOA?oc=5" target="_blank" rel="noopener">BBAI Stock Climbs As Defense AI Earnings Beat Expectations - timothysykes.com</a></li>
+<li>요약: BigBear.ai Inc. 관련 보도: BBAI Stock Climbs As Defense AI Earnings Beat Expectations</li>
+<li>2026-05-08 05:02 | StocksToTrade | <a href="https://news.google.com/rss/articles/CBMidEFVX3lxTE9COG5meldQeGpTZTYzNEc0YXg5WnZmVzByTEZKY0FELUdzVTBjSHI2MDVLckplQ3F6bThXOG1pMTF1Tm9hS3R1d1E5MEVyT0RNa2NDbTd3bFE1QjFIMG9Sb2cwTlpyRkJSdWI2T2U3M2l5Ry01?oc=5" target="_blank" rel="noopener">BBAI Stock Slips As Earnings Miss Outweighs Guidance - StocksToTrade</a></li>
+<li>요약: BigBear.ai Inc. 관련 보도: BBAI Stock Slips As Earnings Miss Outweighs Guidance</li>
+<li>2026-05-07 05:04 | StocksToTrade | <a href="https://news.google.com/rss/articles/CBMidEFVX3lxTFBXdDJ6NGJ3cy1VbldtYVN0V1hpQzdSVzV5OVFGQmFkWF9YbS1kODBNekc0dmQ4T3UzU21VZ096UExBc3c0d1NxeVJiVDdlc3VsbThHTjJKRUxsdDltVHFDMEdNLXdDaGNzcFJnVVlKVkFqNXJx?oc=5" target="_blank" rel="noopener">BBAI Stock Climbs As Defense AI Growth Story Builds - StocksToTrade</a></li>
+<li>요약: BigBear.ai Inc. 관련 보도: BBAI Stock Climbs As Defense AI Growth Story Builds</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>2026-05-05 | 10-Q | <a href="https://www.sec.gov/Archives/edgar/data/1836981/000183698126000049/bbai-20260331.htm" target="_blank" rel="noopener">10-Q</a></li>
+<li>2026-05-05 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1836981/000183698126000047/bbai-20260505.htm" target="_blank" rel="noopener">8-K</a></li>
+</ul>
+<h3>15. B2Gold Corp Common shares (Canada) (BTG)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Basic Materials / Precious Metals</li>
+<li>종가: $5.30</li>
+<li>거래량: 34,000,298</li>
+<li>변동률: +7.07%</li>
+<li>웹사이트: https://www.b2gold.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>B2Gold is a responsible international gold producer headquartered in Vancouver, Canada. Founded in 2007, today, B2Gold has operating gold mines in Canada, Mali, Namibia and the Philippines, and numerous development and exploration projects in various countries.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>최근 5일 내 확인된 뉴스 없음 또는 뉴스 수집 실패</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3>16. Ondas Inc. (ONDS)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Technology / Radio And Television Broadcasting And Communications Equipment</li>
+<li>종가: $9.06</li>
+<li>거래량: 33,826,001</li>
+<li>변동률: +1.91%</li>
+<li>웹사이트: https://www.ondas.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Ondas Inc. (Nasdaq:ONDS) is a leading provider of autonomous systems, robotics, and mission-critical connectivity solutions for defense, security, and industrial markets. Through its business units (Ondas Autonomous Systems, Ondas Capital and Ondas Networks ), the Company develops and deploys integrated technologies that deliver advanced sensing, mobility, and communications capabilities for complex operational environments. Ondas Autonomous Systems (OAS) delivers a portfolio of AI-enabled air and ground robotic platforms and counter-UAS technologies designed to support defense, homeland security, and critical infrastructure protection missions worldwide. OAS solutions include autonomous drone platforms, robotic ground systems, counter-drone technologies, advanced propulsion and unmanned aircraft capabilities, autonomous engineering and demining capabilities, and integrated sensing...</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-05-07 22:33 | Zacks Investment Research | <a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxQQXpKSWZwbDBsNXlKUzRNU1hSakFka25LVGRVU2FIMFRQVDFBd2xXOGhkYld1LS1nSmdmUmlLQ3dmbGlKenVzYnRudEtSMUJJZEpfdkZCNmFUcnhOX0MtSDB4RVlkWnh5eWkteW9vQmg3MXlPZVJIazQySjRlYV9lRE9xOUJVMDNLcUxSQjQ5TGd6ZFh5ZEhOc1ZzS1Z5WmRCZldqZWRDUWQ?oc=5" target="_blank" rel="noopener">Ondas Edges Down in the Last Month: How to Approach the Stock Now? - Zacks Investment Research</a></li>
+<li>요약: Ondas Inc. 관련 보도: Ondas Edges Down in the Last Month: How to Approach the Stock Now?</li>
+<li>2026-05-09 05:16 | Stock Titan | <a href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxQY3lwYTNJUVA1aWIzWUpNcHpHOTBCbWU5bFc4dklONkM4QlhBazRkM1lYRldHeGJvUWF5Mzc5OFU2T2NyWHpqTlBwcGVhdldOcEx2MFhCMnJ3a0dfeHgyMmEybDBZTm5uUXRnQlR1ckdYSGpBVzN0QmNOUkJIZWh3VWtZUnd3ejFuMnloRkVyOTVTcGNRWDAta0thMUMwM2NDaFpXczB3dzd0ZEJDWHJNWnBvSDRZRHhsbXk0?oc=5" target="_blank" rel="noopener">Ondas Inc. (NASDAQ: ONDS) registers 6,351 shares for resale by sellers - Stock Titan</a></li>
+<li>요약: Ondas Inc. 관련 보도: Ondas Inc. (NASDAQ: ONDS) registers 6,351 shares for resale by sellers</li>
+<li>2026-05-09 06:23 | TipRanks | <a href="https://news.google.com/rss/articles/CBMisgFBVV95cUxNV001V3JBbm1SUS1tRHNFbVRMRTUtbUdTWTRhdnRFX1JUVl9GMVBDU1c5VENvWndrZWV2Smg2QnZzdVZ0LVJOQU5mMzhXTTBqZ1NDUDRlWnhlSlJuV3c0TmdTUVA2UkhJVldBa2tNRlZVS2tqVGlhVnNudktpZWE2UnFSQjJ3UjdHbVZyVkx1TGFCX01DUFR2VmRKUnpWaURqX3NjUTFXMWtHMW1QSDJtTUhB?oc=5" target="_blank" rel="noopener">Ondas Registers Resale Shares Tied to World View Acquisition - TipRanks</a></li>
+<li>요약: Ondas Inc. 관련 보도: Ondas Registers Resale Shares Tied to World View Acquisition</li>
+<li>2026-05-10 00:42 | MSN | <a href="https://news.google.com/rss/articles/CBMi0wFBVV95cUxNN3dIUzBrTXhBaVpIZmdEYmpvX0hncmF1RU1KZEw0ZVFoTERVY1JLaF9KQ1Q1eFFabnR5XzV1QzJZMDNCanhTWjlmWVpTeGUtSmJBd1QxbHJRbDMxa0ZoYV9YUXg3bWRJUExYTUJoWmpyYXFzUDhDbGtYM1RJcEdWOV9jVnJuNW9TNmFXZ0g4TWdzRGdwT1VILW5mMTVTS1JDOXFiSWpRUnBIbHdSQ21Vb0Q2UjNkWVJyMm00ZEZfWEdnV0g5cEVtcjhOdGtXeWc3MndR?oc=5" target="_blank" rel="noopener">Ondas stock is surging Monday: What&#x27;s going on with ONDS shares? - MSN</a></li>
+<li>요약: Ondas Inc. 관련 보도: Ondas stock is surging Monday: What&#x27;s going on with ONDS shares?</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>2026-05-08 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1646188/000121390026053914/ea0289772-8k_ondas.htm" target="_blank" rel="noopener">CURRENT REPORT</a></li>
+<li>2026-05-08 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1646188/000121390026053612/ea0289654-8k_ondas.htm" target="_blank" rel="noopener">CURRENT REPORT</a></li>
+<li>2026-05-05 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1646188/000121390026051933/ea0289024-8k_ondas.htm" target="_blank" rel="noopener">CURRENT REPORT</a></li>
+</ul>
+<h3>17. Keel Infrastructure Corp. (KEEL)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Finance / Finance: Consumer Services</li>
+<li>종가: $3.97</li>
+<li>거래량: 31,541,659</li>
+<li>변동률: -1.00%</li>
+<li>웹사이트: https://www.keelinfra.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Keel Infrastructure is a North American digital infrastructure and energy company that develops and owns data centers and energy infrastructure for high-performance computing workloads, including AI. With a pipeline of 2.2 gigawatts and established grid interconnections already in place, Keel delivers scalable infrastructure solutions in high-demand power markets across Pennsylvania and Washington in the United States, and Québec in Canada.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-05-11 14:34 | AAII.com | <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxPVUcyejA1X0JnTVhzQ3VXNTl2NEpHRWU1TmdzeEhVS2NwOEpvV2tuSWZBTTM3UERwNEc3UVRfU2pySVE3Z0p5am5uYWVRU3FDZExRejA3QngtZUk4RF9rSnMxdlFoOHM3M2JZM28wUVpkcFhSNHZDU05qQzNpR2VjaTRGN1dhN0VMRHV6VjA3eG9HN3lFTmZiREpLRFZwVnFSUVZhbnhYZU1iQ1hBYllBNDl5UlFGYnJ4eUQxTU85Wnc1RUdPYmFSaTdqaw?oc=5" target="_blank" rel="noopener">Which Is a Better Investment, ACI Worldwide, Inc. or Keel Infrastructure Corp. Stock? - AAII.com</a></li>
+<li>요약: Keel Infrastructure Corp. 관련 보도: Which Is a Better Investment, ACI Worldwide, Inc. or Keel Infrastructure Corp. Stock?</li>
+<li>2026-05-07 07:48 | The Motley Fool | <a href="https://news.google.com/rss/articles/CBMingJBVV95cUxNSFhrOFZGS2FNY0lSNExIM3hHSHM4YkRLUnZJdDZHMmhoSTA2QlpFbFdGYlJDLVI0Nm9yQlRoUWtyaEtvMUVBQkNzMHZkWDBZNnNXZHFmeWtJVlZIdFJWWU9SZ3VRVGhyOEtsUm9udEtVSWlqOWFPLWhjNEFuZnJnSEYxcUlWQWZ1dTVrSGMwd2czN0tIeGI2TGhIR2hsWkJQWkNfa1FIVnZ3azJNZnc5aHBxQ0FSVWZWWWpRbF9YTFJraHAzcmxNU2pCZHpWSzFZXzNnSGtIcnVDT0J0dG5nZG41MG1TdlhyQkUwZ2ZIbC1sMEtsTnZld0ZFY2VPd2VkMWtzMGxSdDk3M196WjNTaDh0OURPUHUwb1pfOS1R?oc=5" target="_blank" rel="noopener">Stock Market Today, May 6: Keel Infrastructure Corp. Rises as Analyst Coverage Reframes Its Shift Toward Power-Backed AI Infrastructure - The Motley Fool</a></li>
+<li>요약: Keel Infrastructure Corp. 관련 보도: Stock Market Today, May 6: Keel Infrastructure Corp. Rises as Analyst Coverage Reframes Its Shift Toward Power-Backed AI Infrastructure</li>
+<li>2026-05-08 16:00 | ChartMill | <a href="https://news.google.com/rss/articles/CBMiZEFVX3lxTE9VNEpSZGcxd3p3dWhXRlJ5cUdGc1dTSXlvcHZ3QnZCdXhPVEZmdm5VYlRUX3FudlYzam1xSmU5YTVrUlBMWnZYbEdYdnZnLWVHcFRULWVkbUtXclV5UVZxYUY5amY?oc=5" target="_blank" rel="noopener">KEEL Stock Chart \| KEEL INFRASTRUCTURE CORP (NASDAQ:KEEL) - ChartMill</a></li>
+<li>요약: Keel Infrastructure Corp. 관련 보도: KEEL Stock Chart \| KEEL INFRASTRUCTURE CORP (NASDAQ:KEEL)</li>
+<li>2026-05-11 05:02 | AOL.com | <a href="https://news.google.com/rss/articles/CBMidkFVX3lxTE5pVTJ2X1BveXlNQVpXTEJpdk85YU1RVTBJX1NjZ3NRMUU1c1lfSWt0bmdDNzlneDY0UUdzS0NNVzlxdVhpR0VtRlNjRUhVLWVPWTJmT3F1cFJsM05Qclk3cXNoRjVxQTdTX0hQVVRCSTR6YWRoeWc?oc=5" target="_blank" rel="noopener">Stock Market Today, May 6: Keel Infrastructure Corp. Rises as Analyst Coverage Reframes Its Shift Toward Power-Backed AI Infrastructure - AOL.com</a></li>
+<li>요약: Keel Infrastructure Corp. 관련 보도: Stock Market Today, May 6: Keel Infrastructure Corp. Rises as Analyst Coverage Reframes Its Shift Toward Power-Backed AI Infrastructure</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3>18. Transocean Ltd (Switzerland) (RIG)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Energy / Oil &amp; Gas Production</li>
+<li>종가: $6.40</li>
+<li>거래량: 31,206,779</li>
+<li>변동률: +3.73%</li>
+<li>웹사이트: https://www.deepwater.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Transocean is a leading international provider of offshore contract drilling services for oil and gas wells. The company specializes in technically demanding sectors of the global offshore drilling business with a particular focus on ultra-deepwater and harsh environment drilling services and operates the highest specification floating offshore drilling fleet in the world. Transocean owns or has partial ownership interests in and operates a fleet of 27 mobile offshore drilling units, consisting of 20 ultra-deepwater drillships and seven harsh environment semisubmersibles.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-05-09 05:03 | StocksToTrade | <a href="https://news.google.com/rss/articles/CBMihAFBVV95cUxPMUN5QVduTGtHMXhEaDZ5UjV3dVdIQ2dQSlZzbXN5dkU5RHZCT0hmV0VOSVVrWEl6MVY2XzZDNnZleGlmVTI3VlhTQ3Q0RTY2amlZdEdVUGNuSnNzeGpjbzVDaDNlejdyNlY1c3V2Qm56Rk5YUWZxLVEtTkNzWThMdk4zamU?oc=5" target="_blank" rel="noopener">Transocean RIG Stock Climbs On Backlog Boom And Upgrade - StocksToTrade</a></li>
+<li>요약: Transocean Ltd (Switzerland) 관련 보도: Transocean RIG Stock Climbs On Backlog Boom And Upgrade</li>
+<li>2026-05-09 03:34 | timothysykes.com | <a href="https://news.google.com/rss/articles/CBMiiAFBVV95cUxPLW44OU5iUnZXOUdITWdFalRnaGZsUVZfeU1tSEkxREowZm5mMEg2ek5JYzJaTkdVYUViNVNmalhqREdyODk5MnhZU2czOFd1TjEzSWd6S2REQmo5YTBfcHdwNS1HMG1uajhYSlVZY0V6Rk9uLVlLMV9Kd0pqVllxR0RsdFZTSnFx?oc=5" target="_blank" rel="noopener">Transocean RIG Stock Grinds Higher On Backlog And Upgrade - timothysykes.com</a></li>
+<li>요약: Transocean Ltd (Switzerland) 관련 보도: Transocean RIG Stock Grinds Higher On Backlog And Upgrade</li>
+<li>2026-05-09 06:04 | timothysykes.com | <a href="https://news.google.com/rss/articles/CBMiiwFBVV95cUxOWW92S1hNNm41LUpWTWtwOUdWT3hmaFMxenlSWXp5d09QS3ZUN1JHYU5ZQzR5a25tSlpSQ3dHZWxtM29TV3JMeDlpR3FHUnpGTHBwTTV4aUFuUDFkano0cFVzU1FHZ0tMaGdYWm8wZW5Kd3g2LUNudG5KSnFrTUJrWEROUjlfbVhTeUNj?oc=5" target="_blank" rel="noopener">RIG Stock Firms Up As Backlog And Upgrade Fuel Bullish Tone - timothysykes.com</a></li>
+<li>요약: Transocean Ltd (Switzerland) 관련 보도: RIG Stock Firms Up As Backlog And Upgrade Fuel Bullish Tone</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>2026-05-05 | 10-Q | <a href="https://www.sec.gov/Archives/edgar/data/1451505/000145150526000044/rig-20260331x10q.htm" target="_blank" rel="noopener">10-Q</a></li>
+<li>2026-05-05 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1451505/000110465926055235/tm269762d6_8k.htm" target="_blank" rel="noopener">FORM 8-K</a></li>
+<li>2026-05-04 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1451505/000145150526000041/rig-20260504x8k.htm" target="_blank" rel="noopener">8-K</a></li>
+</ul>
+<h3>19. Aurora Innovation Inc. Class A (AUR)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Technology / EDP Services</li>
+<li>종가: $7.08</li>
+<li>거래량: 28,184,389</li>
+<li>변동률: -0.84%</li>
+<li>웹사이트: https://www.aurora.tech</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Aurora (Nasdaq: AUR) is delivering the benefits of self-driving technology safely, quickly, and broadly to make transportation safer, increasingly accessible, and more reliable and efficient than ever before. The Aurora Driver is a self-driving system designed to operate multiple vehicle types, from freight-hauling trucks to ride-hailing passenger vehicles, and underpins Aurora&#x27;s driver as a service product for trucking. Aurora is working with industry leaders across the transportation ecosystem, including AUMOVIO, FedEx, Hirschbach, McLane, NVIDIA, PACCAR, Ryder, Schneider, Toyota, Uber, Uber Freight, Volvo Trucks, Volvo Autonomous Solutions, and Werner. To learn more, visit aurora.tech.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-05-09 05:45 | CNN | <a href="https://news.google.com/rss/articles/CBMiT0FVX3lxTE9ibmM2UVVMekMybnNnVkxTcjB1a0Z3QjJoQVR6aVpieG5seFFqRnhkUS0ycWF2UW1Jelo2MUt6cV95VEE2WmdBTUM4RDRXMTA?oc=5" target="_blank" rel="noopener">AUR Stock Quote Price and Forecast - CNN</a></li>
+<li>요약: Aurora Innovation Inc. Class A 관련 보도: AUR Stock Quote Price and Forecast</li>
+<li>2026-05-07 22:46 | Stock Titan | <a href="https://news.google.com/rss/articles/CBMiygFBVV95cUxNNUZDVURNTF9PeWZQM0tlM2YwT1o1clBOUUp1amhyTDYtNlROOE80cjkwMGItejdVQW82cVNMQ094QWFmUjA4MlB1d21CQzJkdTduX2t4bHpUUXdCVUVQWGRLcXp2SmR4Q1NqM1ZQNXJoNlAtSnc2Q080YV85a19WcHI4WktXWTJRQkE0VS1XQ2tkaE5neGdfZGMxaHp5NjdvV3puTVp2TUVtYVQzOUhLSExreWotS0RaQWNfWkMySjJWTzFLcW1LLVZ3?oc=5" target="_blank" rel="noopener">Baillie Gifford (AUR) discloses 79.8M Class A shares, 4.83% stake - Stock Titan</a></li>
+<li>요약: Aurora Innovation Inc. Class A 관련 보도: Baillie Gifford (AUR) discloses 79.8M Class A shares, 4.83% stake</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>2026-05-06 | 10-Q | <a href="https://www.sec.gov/Archives/edgar/data/1828108/000182810826000052/aur-20260331.htm" target="_blank" rel="noopener">10-Q</a></li>
+<li>2026-05-06 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1828108/000182810826000050/aur-20260506.htm" target="_blank" rel="noopener">8-K</a></li>
+</ul>
+<h3>20. Upwork Inc. (UPWK)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Technology / EDP Services</li>
+<li>종가: $8.82</li>
+<li>거래량: 26,572,183</li>
+<li>변동률: -16.87%</li>
+<li>웹사이트: https://www.upwork.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Upwork Inc.&#x27;s (Nasdaq: UPWK) family of companies connects businesses with global, AI-enabled talent across every contingent work type including freelance, fractional, and payrolled. This portfolio includes the Upwork Marketplace, which connects businesses with on-demand access to highly skilled talent across the globe, and Lifted, which provides a purpose-built solution for enterprise organizations to source, contract, manage, and pay talent across the full spectrum of contingent work. From Fortune 100 enterprises to entrepreneurs, businesses rely on Upwork Inc. to find and hire expert talent, leverage AI-powered work solutions, and drive business transformation. With access to professionals spanning more than 10,000 skills across AI &amp; machine learning, software development, sales &amp; marketing, customer support, finance &amp; accounting, and more, the Upwork family of companies enables...</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-05-08 07:02 | Quiver Quantitative | <a href="https://news.google.com/rss/articles/CBMikAFBVV95cUxPTEZTVlZwbUI0bkFHQVFnUllMSzh4R1pwcFEwU1RqUlFZMWo0cHIzaTdaZUg3STZXaXRsTUZfOWNiVkd6MHVCYTBxYVM3aFpHMWxEYzZmMnVYQzRMX1NKQkp3dHBWb2FWazVEUm1pUTU3dUdBM1lNYVRqSTlsN2FmVjJVcld2dXpGREtwX04tMks?oc=5" target="_blank" rel="noopener">Upwork Inc. (UPWK) Stock Falls on Q1 2026 Earnings - Quiver Quantitative</a></li>
+<li>요약: Upwork Inc. 관련 보도: Upwork Inc. (UPWK) Stock Falls on Q1 2026 Earnings</li>
+<li>2026-05-08 05:30 | Stock Titan | <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxNaFlrVk9uNkVNaDhLcXRUNWdjR3I0WlBDN1J4TC0yMjVGMTNMNDJhalAzQmFvR3FmVFpMcUNhZEhWaVhkdW9RX1NxXzVRVXRoQ2Nzd0tlYjhrUV9xNENhS0lzdTUxVkFmaENRb3dfRF92Tm5JeE9DcGs1bXV5N3JzMW8ybXhrOVZUZ0ItRUtfQjBaM0JBcGkzcWw0bjBxMDQ?oc=5" target="_blank" rel="noopener">Upwork cuts 24% of workers while AI-related work grows 40% - Stock Titan</a></li>
+<li>요약: Upwork Inc. 관련 보도: Upwork cuts 24% of workers while AI-related work grows 40%</li>
+<li>2026-05-08 05:58 | StockStory | <a href="https://news.google.com/rss/articles/CBMi4AFBVV95cUxQWU5aZzd5bk5NNXJEcmNXRmhXZHgwMGVtMzAzZkQ5dk92RzNlRmxOSkQ4Y250WXRJVV9GcG5FaWJPUnlxSVBfcGRQN3hvd1pxZEZGVlh6YW1JX3k0OGpEcDFnSzFva3FuanlBMlAyQ2ZVTkVmRHhYS243elg1LXhVaVdjOVE2YkhxdjlJSjZFVXZzYU1WcEJ3b2pSUjJSSmhRZFMxT2JUYWI1bjB2RFNfU3BRSmxXeUgtbVJmbHF1andXMnRKbHVYd3JUNEdFZ3RKRzhuY2wwbDQ0bWpjTTNRag?oc=5" target="_blank" rel="noopener">Upwork (NASDAQ:UPWK) Reports Q1 CY2026 In Line With Expectations But Stock Drops 19.3% - StockStory</a></li>
+<li>요약: Upwork Inc. 관련 보도: Upwork (NASDAQ:UPWK) Reports Q1 CY2026 In Line With Expectations But Stock Drops 19.3%</li>
+<li>2026-05-11 15:55 | MSN | <a href="https://news.google.com/rss/articles/CBMitgFBVV95cUxNU0g5NzlPb3JZSUx3NlZaMTVLcnBCR0FzdW9rdzJuSjV4T1J1WmQ4Um9MenBBOWVxaW5MUFRiRHBEbnpMNElrV1pVaVdNZ2o0U0lseUxQblJHdWRMVHhQeXlhelgtTVhCUEhxRHdSbDhNMkdPWHQtMTROckhCbTJ4NDBLcy1adUtnOXNVWXNCZlBjLXRqMkJBa0tNWVRIRmh6SmxZenVzZUZKUjdBYnhzVVdrNmZDdw?oc=5" target="_blank" rel="noopener">Why did UPWK, MCD, HUBS stocks plunge to 52-week lows last week? - MSN</a></li>
+<li>요약: Upwork Inc. 관련 보도: Why did UPWK, MCD, HUBS stocks plunge to 52-week lows last week?</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>2026-05-07 | 10-Q | <a href="https://www.sec.gov/Archives/edgar/data/1627475/000162747526000034/upwk-20260331.htm" target="_blank" rel="noopener">10-Q</a></li>
+<li>2026-05-07 | 8-K | <a href="https://www.sec.gov/Archives/edgar/data/1627475/000162747526000033/upwork-20260507.htm" target="_blank" rel="noopener">8-K</a></li>
+</ul>
+          </article>
+        </section>
+        
+</body>
+</html>

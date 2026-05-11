@@ -12,6 +12,11 @@ Write one report per trading date:
 
 `reports/us_low_price_volume/YYYY-MM-DD.md`
 
+Also rebuild the static website after each report:
+
+- `site/index.html`
+- `site/reports/YYYY-MM-DD.html`
+
 ## Selection Rules
 
 1. Use the most recent completed US regular trading session from the current Asia/Seoul execution time.
@@ -51,6 +56,10 @@ If a source fails, keep building the report and mark the failing field as unavai
 ```bash
 scripts/run_daily_us_stock_report.sh
 ```
+
+Open the website locally from:
+
+`site/index.html`
 
 ## Scheduled Run
 
