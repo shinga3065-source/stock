@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.codex.us-low-price-volume-report</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/sh</string>
+    <string>/Users/apple/Desktop/codex/주식/scripts/run_daily_us_stock_report.sh</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/apple/Desktop/codex/주식</string>
+
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>16</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/Users/apple/Desktop/codex/주식/.tmp/daily_us_stock_report.out.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/Users/apple/Desktop/codex/주식/.tmp/daily_us_stock_report.err.log</string>
+</dict>
+</plist>
