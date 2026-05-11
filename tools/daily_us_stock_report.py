@@ -357,7 +357,8 @@ def google_news(symbol: str, company: str, days: int) -> List[NewsItem]:
         published = parse_rss_date(item.findtext("pubDate") or "")
         if published and published.astimezone(dt.timezone.utc) < cutoff:
             continue
-        summary = summarize_news_title(title, company)
+        description = clean_text(item.findtext("description") or "")
+        summary = summarize_news_item(title, description, company)
         items.append(NewsItem(title=title, publisher=publisher, published=published, summary=summary, link=link))
         if len(items) >= 4:
             break
@@ -464,8 +465,8 @@ def build_report(limit: int, days: int, output_dir: Path, session_date: Optional
             if should_translate():
                 for news in item.news:
                     translated_summary = translate_to_korean(
-                        news.title,
-                        f"{stock.company} 관련 뉴스 제목을 한국어로 한 문장 요약",
+                        f"제목: {news.title}\n요약 후보: {news.summary}",
+                        f"{stock.company} 관련 뉴스의 핵심 내용을 한국어 한 문장으로 요약",
                     )
                     if translated_summary:
                         news.summary = translated_summary
@@ -548,8 +549,10 @@ def render_markdown(
         if item.news:
             for news in item.news:
                 pub_date = news.published.astimezone(SEOUL).strftime("%Y-%m-%d %H:%M") if news.published else "발행일 수집 실패"
-                lines.append(f"- {pub_date} | {md_escape(news.publisher)} | [{md_escape(news.title)}]({news.link})")
-                lines.append(f"  - 요약: {md_escape(news.summary)}")
+                lines.append(
+                    f"- {pub_date} | {md_escape(news.publisher)} | "
+                    f"[{md_escape(news.title)}]({news.link}) - 요약: {md_escape(news.summary)}"
+                )
         else:
             lines.append("- 최근 5일 내 확인된 뉴스 없음 또는 뉴스 수집 실패")
         lines.append("")
@@ -727,12 +730,18 @@ def parse_rss_date(value: str) -> Optional[dt.datetime]:
         return None
 
 
-def summarize_news_title(title: str, company: str) -> str:
+def summarize_news_item(title: str, description: str, company: str) -> str:
     cleaned = clean_text(title)
     if not cleaned:
         return "뉴스 제목 수집 실패"
     title_without_source = re.sub(r"\s+-\s+[^-]+$", "", cleaned)
-    return f"{company} 관련 보도: {title_without_source}"
+    description_text = clean_text(description)
+    description_text = re.sub(r"\s+", " ", description_text)
+    description_text = re.sub(rf"^{re.escape(title_without_source)}\s*", "", description_text)
+    if description_text and description_text != title_without_source:
+        short_description = textwrap.shorten(description_text, width=180, placeholder="...")
+        return f"{company} 관련 기사로, {short_description}"
+    return f"{company} 관련 기사로, {title_without_source} 내용을 다룹니다."
 
 
 def wrap_paragraph(text: str) -> str:

@@ -357,6 +357,18 @@ def page_shell(title: str, body: str, report_page: bool = False) -> str:
       padding: 2px 5px;
       border-radius: 4px;
     }}
+    .positive {{
+      color: #b91c1c;
+      font-weight: 800;
+    }}
+    .negative {{
+      color: #1d4ed8;
+      font-weight: 800;
+    }}
+    .filing-yes {{
+      color: #b91c1c;
+      font-weight: 800;
+    }}
     .table-wrap {{
       overflow-x: auto;
       border: 1px solid var(--line);
@@ -460,7 +472,10 @@ def markdown_table_to_html(lines: List[str]) -> str:
     thead = "".join(f"<th>{parse_inline(cell)}</th>" for cell in headers)
     body_rows = []
     for row in rows:
-        cells = "".join(f"<td>{parse_inline(cell)}</td>" for cell in row)
+        cells = "".join(
+            f'<td class="{cell_class(headers[idx] if idx < len(headers) else "", cell)}">{parse_inline(cell)}</td>'
+            for idx, cell in enumerate(row)
+        )
         body_rows.append(f"<tr>{cells}</tr>")
     return f'<div class="table-wrap"><table><thead><tr>{thead}</tr></thead><tbody>{"".join(body_rows)}</tbody></table></div>'
 
@@ -484,7 +499,20 @@ def parse_inline(text: str) -> str:
         r'<a href="\2" target="_blank" rel="noopener">\1</a>',
         escaped,
     )
+    escaped = re.sub(r"(?<![\w>])\+\d+(?:\.\d+)?%", r'<span class="positive">\g<0></span>', escaped)
+    escaped = re.sub(r"(?<![\w>])-\d+(?:\.\d+)?%", r'<span class="negative">\g<0></span>', escaped)
     return escaped
+
+
+def cell_class(header: str, cell: str) -> str:
+    if header == "변동률":
+        if cell.startswith("+"):
+            return "positive"
+        if cell.startswith("-"):
+            return "negative"
+    if header == "실적/공시" and cell == "있음":
+        return "filing-yes"
+    return ""
 
 
 def first_heading(markdown: str) -> str:
