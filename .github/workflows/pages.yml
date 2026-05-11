@@ -3,7 +3,7 @@ name: Deploy report site
 on:
   push:
     branches:
-      - main
+      - gh-pages
     paths:
       - "index.html"
       - "site/**"

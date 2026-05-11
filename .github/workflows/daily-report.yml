@@ -6,9 +6,8 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: write
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   build-report:
@@ -40,15 +39,16 @@ jobs:
           commit_message: "Update daily stock report"
           file_pattern: "reports/us_low_price_volume/*.md site/**/*.html site/*.html index.html"
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
+      - name: Mirror latest site to gh-pages
+        run: git push origin HEAD:gh-pages --force
 
-      - name: Upload site
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: .
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+      - name: Dispatch Pages deploy
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl -sS -X POST \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/pages.yml/dispatches" \
+            -d '{"ref":"gh-pages"}'
