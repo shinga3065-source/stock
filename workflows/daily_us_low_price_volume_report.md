@@ -71,3 +71,16 @@ The job writes logs to:
 
 - `.tmp/daily_us_stock_report.out.log`
 - `.tmp/daily_us_stock_report.err.log`
+
+## GitHub Scheduled Run
+
+The GitHub Actions workflow `.github/workflows/daily-report.yml` runs daily at 07:00 UTC, which is 16:00 Asia/Seoul.
+
+The workflow:
+
+1. Checks out the repository.
+2. Runs `scripts/run_daily_us_stock_report.sh`.
+3. Rebuilds the Markdown report and static website.
+4. Commits changed report/site files back to `main`.
+
+For automatic Korean translation of company descriptions and news summaries, set the repository secret `OPENAI_API_KEY`. If it is not set, the report still runs and includes Korean fallback summaries plus Korean explanations of SEC filing types.

@@ -1,0 +1,39 @@
+name: Daily stock report
+
+on:
+  schedule:
+    - cron: "0 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-report:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Seoul
+      STOCK_TRANSLATE_KO: "1"
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_TRANSLATION_MODEL: ${{ vars.OPENAI_TRANSLATION_MODEL || 'gpt-4o-mini' }}
+      STOCK_REPORT_USER_AGENT: "shinga3065-source stock report bot contact: github-actions"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Build daily report and site
+        run: scripts/run_daily_us_stock_report.sh
+
+      - name: Commit generated report
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update daily stock report"
+          file_pattern: "reports/us_low_price_volume/*.md site/**/*.html site/*.html index.html"

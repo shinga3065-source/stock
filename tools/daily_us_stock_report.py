@@ -93,6 +93,7 @@ class FilingItem:
     form: str
     title: str
     link: str
+    summary: str = ""
 
 
 @dataclass
@@ -285,6 +286,23 @@ def company_profile(stock: StockCandidate) -> CompanyProfile:
     )
 
 
+def translated_profile(stock: StockCandidate, profile: CompanyProfile) -> CompanyProfile:
+    if not should_translate():
+        return profile
+    translated = translate_to_korean(
+        profile.summary,
+        f"{stock.company} 회사 개요를 한국 투자자가 이해하기 쉽게 2~3문장으로 번역/요약",
+    )
+    if not translated:
+        translated = fallback_company_summary(stock, profile)
+    return CompanyProfile(
+        sector=profile.sector,
+        industry=profile.industry,
+        summary=translated,
+        website=profile.website,
+    )
+
+
 def nasdaq_company_profile(stock: StockCandidate) -> CompanyProfile:
     url = f"https://api.nasdaq.com/api/company/{urllib.parse.quote(stock.symbol)}/company-profile"
     data = http_get_json(url)
@@ -398,7 +416,16 @@ def sec_recent_filings(symbol: str, ticker_map: Dict[str, str], days: int) -> Li
             continue
         accession_clean = str(accession).replace("-", "")
         link = f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/{accession_clean}/{doc}"
-        filings.append(FilingItem(filed_at=filed_at, form=str(form), title=title, link=link))
+        form_text = str(form)
+        filings.append(
+            FilingItem(
+                filed_at=filed_at,
+                form=form_text,
+                title=title,
+                link=link,
+                summary=filing_summary_ko(form_text, title),
+            )
+        )
         if len(filings) >= 3:
             break
     return filings
@@ -427,13 +454,21 @@ def build_report(limit: int, days: int, output_dir: Path, session_date: Optional
     for stock in candidates:
         item = StockReportItem(stock=stock)
         try:
-            item.profile = company_profile(stock)
+            item.profile = translated_profile(stock, company_profile(stock))
         except Exception as exc:
             message = f"profile failed: {exc}"
             item.errors.append(message)
             log(f"{stock.symbol}: {message}")
         try:
             item.news = google_news(stock.symbol, stock.company, days)
+            if should_translate():
+                for news in item.news:
+                    translated_summary = translate_to_korean(
+                        news.title,
+                        f"{stock.company} 관련 뉴스 제목을 한국어로 한 문장 요약",
+                    )
+                    if translated_summary:
+                        news.summary = translated_summary
         except Exception as exc:
             message = f"news failed: {exc}"
             item.errors.append(message)
@@ -526,6 +561,8 @@ def render_markdown(
                     f"- {filing.filed_at} | {md_escape(filing.form)} | "
                     f"[{md_escape(filing.title)}]({filing.link})"
                 )
+                if filing.summary:
+                    lines.append(f"  - 요약: {md_escape(filing.summary)}")
         else:
             lines.append("- 최근 5일 내 확인된 실적 발표/관련 공시 없음")
         lines.append("")
@@ -564,6 +601,78 @@ def clean_text(value: str) -> str:
     value = re.sub(r"<[^>]+>", " ", value)
     value = re.sub(r"\s+", " ", value)
     return value.strip()
+
+
+def should_translate() -> bool:
+    return os.environ.get("STOCK_TRANSLATE_KO", "1") != "0"
+
+
+def translate_to_korean(text: str, instruction: str) -> str:
+    text = clean_text(text)
+    if not text or text == "수집 실패" or contains_korean(text):
+        return text
+    api_key = os.environ.get("OPENAI_API_KEY", "").strip()
+    if not api_key:
+        return ""
+    payload = {
+        "model": os.environ.get("OPENAI_TRANSLATION_MODEL", "gpt-4o-mini"),
+        "messages": [
+            {
+                "role": "system",
+                "content": "You translate and summarize financial report text into clear Korean. Return only Korean text.",
+            },
+            {
+                "role": "user",
+                "content": f"{instruction}\n\n{textwrap.shorten(text, width=1800, placeholder='...')}",
+            },
+        ],
+        "temperature": 0.2,
+    }
+    req = urllib.request.Request(
+        "https://api.openai.com/v1/chat/completions",
+        data=json.dumps(payload).encode("utf-8"),
+        method="POST",
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=45) as response:
+            data = json.loads(response.read().decode("utf-8"))
+        return clean_text(data["choices"][0]["message"]["content"])
+    except Exception as exc:
+        log(f"translation failed: {exc}")
+        return ""
+
+
+def fallback_company_summary(stock: StockCandidate, profile: CompanyProfile) -> str:
+    sector = profile.sector if profile.sector != "수집 실패" else stock.sector or "미분류"
+    industry = profile.industry if profile.industry != "수집 실패" else stock.industry or "미분류"
+    return (
+        f"{stock.company}는 {sector} 섹터의 {industry} 업종에 속한 미국 상장 기업입니다. "
+        "자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다."
+    )
+
+
+def contains_korean(text: str) -> bool:
+    return bool(re.search(r"[가-힣]", text))
+
+
+def filing_summary_ko(form: str, title: str) -> str:
+    normalized = form.upper()
+    title_ko = translate_to_korean(title, "SEC 공시 제목을 한국어로 짧게 번역")
+    if normalized == "10-Q":
+        base = "분기 실적과 재무상태, 현금흐름, 주요 리스크를 담은 정기 보고서입니다."
+    elif normalized == "10-K":
+        base = "연간 실적과 사업 현황, 재무상태, 주요 리스크를 담은 정기 보고서입니다."
+    elif normalized.startswith("8-K"):
+        base = "실적 발표, 경영진 변경, 자금 조달, 계약 등 투자자가 알아야 할 주요 사건을 알리는 수시 공시입니다."
+    else:
+        base = "SEC에 제출된 회사 공시입니다."
+    if title_ko and title_ko != title:
+        return f"{base} 공시 제목 요약: {title_ko}"
+    return base
 
 
 def clean_company_name(value: str) -> str:
