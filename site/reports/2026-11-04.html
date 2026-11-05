@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>미국 저가주 거래량 Top 20 뉴스·공시 보고서</title>
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --surface: #ffffff;
+      --ink: #141922;
+      --muted: #5f6b7a;
+      --line: #dfe4ec;
+      --accent: #0f766e;
+      --accent-strong: #0b4f4a;
+      --gain: #047857;
+      --loss: #b91c1c;
+      --shadow: 0 18px 45px rgba(20, 25, 34, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.55;
+    }
+    a { color: var(--accent-strong); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .hero {
+      min-height: 72vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 32px;
+      align-items: end;
+      padding: 72px max(24px, calc((100vw - 1120px) / 2)) 56px;
+      background:
+        linear-gradient(135deg, rgba(15, 118, 110, 0.9), rgba(20, 25, 34, 0.86)),
+        url("https://images.unsplash.com/photo-1642790551116-18e150f248e3?auto=format&fit=crop&w=1600&q=80");
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+    }
+    .eyebrow {
+      margin: 0 0 12px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      opacity: 0.82;
+    }
+    h1 {
+      margin: 0;
+      font-size: 52px;
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+    .lead {
+      max-width: 680px;
+      margin: 20px 0 0;
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.86);
+    }
+    .hero-panel {
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--ink);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+    .panel-label {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .hero-panel strong {
+      display: block;
+      font-size: 30px;
+      margin-bottom: 18px;
+    }
+    .primary-link {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      padding: 0 16px;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+    }
+    .content-band {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 44px 24px 72px;
+    }
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+    .section-heading h2, .report-nav h2 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+    .report-list {
+      display: grid;
+      gap: 10px;
+    }
+    .report-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 72px;
+      padding: 14px 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(20, 25, 34, 0.04);
+    }
+    .report-row small {
+      display: block;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .open-link {
+      color: var(--accent-strong);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .report-layout {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 26px;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .report-nav {
+      position: sticky;
+      top: 24px;
+      align-self: start;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(20, 25, 34, 0.04);
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .report-nav nav {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .report-nav nav a {
+      display: block;
+      padding: 9px 10px;
+      border-radius: 6px;
+      color: var(--muted);
+    }
+    .report-nav nav a.active {
+      background: #e7f4f2;
+      color: var(--accent-strong);
+      font-weight: 700;
+    }
+    .report-document {
+      min-width: 0;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+    }
+    .report-document h1 {
+      color: var(--ink);
+      font-size: 34px;
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+    .report-document h2 {
+      margin-top: 38px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      font-size: 24px;
+    }
+    .report-document h3 {
+      margin-top: 34px;
+      font-size: 20px;
+    }
+    .report-document p, .report-document li {
+      color: #273140;
+    }
+    .report-document table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0 28px;
+      font-size: 14px;
+    }
+    .report-document th, .report-document td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px 9px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .report-document th {
+      position: sticky;
+      top: 0;
+      background: #eef5f4;
+      color: #25313d;
+      font-weight: 800;
+    }
+    .report-document code {
+      background: #f0f3f7;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+    .positive {
+      color: #b91c1c;
+      font-weight: 800;
+    }
+    .negative {
+      color: #1d4ed8;
+      font-weight: 800;
+    }
+    .filing-yes {
+      color: #b91c1c;
+      font-weight: 800;
+    }
+    .detail-link {
+      color: inherit;
+      font-weight: inherit;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+    .detail-link:hover {
+      color: var(--accent-strong);
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    .table-wrap table {
+      margin: 0;
+      min-width: 860px;
+    }
+    @media (max-width: 820px) {
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        padding-top: 52px;
+      }
+      h1 { font-size: 38px; }
+      .section-heading { display: block; }
+      .report-layout {
+        grid-template-columns: 1fr;
+        padding: 12px;
+      }
+      .report-nav {
+        position: static;
+      }
+      .report-document {
+        padding: 22px 16px;
+      }
+    }
+  </style>
+</head>
+<body class="report-page">
+  
+        <section class="report-layout">
+          <aside class="report-nav">
+            <a class="back-link" href="../index.html">전체 목록</a>
+            <h2>보고서 날짜</h2>
+            <nav><a class="active" href="2026-11-04.html">2026-11-04</a>
+<a class="" href="2026-11-03.html">2026-11-03</a>
+<a class="" href="2026-11-02.html">2026-11-02</a>
+<a class="" href="2026-10-30.html">2026-10-30</a>
+<a class="" href="2026-10-29.html">2026-10-29</a>
+<a class="" href="2026-10-28.html">2026-10-28</a>
+<a class="" href="2026-10-27.html">2026-10-27</a>
+<a class="" href="2026-10-26.html">2026-10-26</a>
+<a class="" href="2026-10-23.html">2026-10-23</a>
+<a class="" href="2026-10-22.html">2026-10-22</a>
+<a class="" href="2026-10-21.html">2026-10-21</a>
+<a class="" href="2026-10-20.html">2026-10-20</a>
+<a class="" href="2026-10-19.html">2026-10-19</a>
+<a class="" href="2026-10-16.html">2026-10-16</a>
+<a class="" href="2026-10-15.html">2026-10-15</a>
+<a class="" href="2026-10-14.html">2026-10-14</a>
+<a class="" href="2026-10-13.html">2026-10-13</a>
+<a class="" href="2026-10-12.html">2026-10-12</a>
+<a class="" href="2026-10-09.html">2026-10-09</a>
+<a class="" href="2026-10-08.html">2026-10-08</a>
+<a class="" href="2026-10-07.html">2026-10-07</a>
+<a class="" href="2026-10-06.html">2026-10-06</a>
+<a class="" href="2026-10-05.html">2026-10-05</a>
+<a class="" href="2026-10-02.html">2026-10-02</a>
+<a class="" href="2026-10-01.html">2026-10-01</a>
+<a class="" href="2026-09-30.html">2026-09-30</a>
+<a class="" href="2026-09-29.html">2026-09-29</a>
+<a class="" href="2026-09-28.html">2026-09-28</a>
+<a class="" href="2026-09-25.html">2026-09-25</a>
+<a class="" href="2026-09-24.html">2026-09-24</a>
+<a class="" href="2026-09-23.html">2026-09-23</a>
+<a class="" href="2026-09-22.html">2026-09-22</a>
+<a class="" href="2026-09-21.html">2026-09-21</a>
+<a class="" href="2026-09-18.html">2026-09-18</a>
+<a class="" href="2026-09-17.html">2026-09-17</a>
+<a class="" href="2026-09-16.html">2026-09-16</a>
+<a class="" href="2026-09-15.html">2026-09-15</a>
+<a class="" href="2026-09-14.html">2026-09-14</a>
+<a class="" href="2026-09-11.html">2026-09-11</a>
+<a class="" href="2026-09-10.html">2026-09-10</a>
+<a class="" href="2026-09-09.html">2026-09-09</a>
+<a class="" href="2026-09-08.html">2026-09-08</a>
+<a class="" href="2026-09-07.html">2026-09-07</a>
+<a class="" href="2026-09-04.html">2026-09-04</a>
+<a class="" href="2026-09-03.html">2026-09-03</a>
+<a class="" href="2026-09-02.html">2026-09-02</a>
+<a class="" href="2026-09-01.html">2026-09-01</a>
+<a class="" href="2026-08-31.html">2026-08-31</a>
+<a class="" href="2026-08-28.html">2026-08-28</a>
+<a class="" href="2026-08-27.html">2026-08-27</a>
+<a class="" href="2026-08-26.html">2026-08-26</a>
+<a class="" href="2026-08-25.html">2026-08-25</a>
+<a class="" href="2026-08-24.html">2026-08-24</a>
+<a class="" href="2026-08-21.html">2026-08-21</a>
+<a class="" href="2026-08-20.html">2026-08-20</a>
+<a class="" href="2026-08-19.html">2026-08-19</a>
+<a class="" href="2026-08-18.html">2026-08-18</a>
+<a class="" href="2026-08-17.html">2026-08-17</a>
+<a class="" href="2026-08-14.html">2026-08-14</a>
+<a class="" href="2026-08-13.html">2026-08-13</a>
+<a class="" href="2026-08-12.html">2026-08-12</a>
+<a class="" href="2026-08-11.html">2026-08-11</a>
+<a class="" href="2026-08-10.html">2026-08-10</a>
+<a class="" href="2026-08-07.html">2026-08-07</a>
+<a class="" href="2026-08-06.html">2026-08-06</a>
+<a class="" href="2026-08-05.html">2026-08-05</a>
+<a class="" href="2026-08-04.html">2026-08-04</a>
+<a class="" href="2026-08-03.html">2026-08-03</a>
+<a class="" href="2026-07-31.html">2026-07-31</a>
+<a class="" href="2026-07-30.html">2026-07-30</a>
+<a class="" href="2026-07-29.html">2026-07-29</a>
+<a class="" href="2026-07-28.html">2026-07-28</a>
+<a class="" href="2026-07-27.html">2026-07-27</a>
+<a class="" href="2026-07-24.html">2026-07-24</a>
+<a class="" href="2026-07-23.html">2026-07-23</a>
+<a class="" href="2026-07-22.html">2026-07-22</a>
+<a class="" href="2026-07-21.html">2026-07-21</a>
+<a class="" href="2026-07-20.html">2026-07-20</a>
+<a class="" href="2026-07-17.html">2026-07-17</a>
+<a class="" href="2026-07-16.html">2026-07-16</a>
+<a class="" href="2026-07-15.html">2026-07-15</a>
+<a class="" href="2026-07-14.html">2026-07-14</a>
+<a class="" href="2026-07-13.html">2026-07-13</a>
+<a class="" href="2026-07-10.html">2026-07-10</a>
+<a class="" href="2026-07-09.html">2026-07-09</a>
+<a class="" href="2026-07-08.html">2026-07-08</a>
+<a class="" href="2026-07-07.html">2026-07-07</a>
+<a class="" href="2026-07-06.html">2026-07-06</a>
+<a class="" href="2026-07-03.html">2026-07-03</a>
+<a class="" href="2026-07-02.html">2026-07-02</a>
+<a class="" href="2026-07-01.html">2026-07-01</a>
+<a class="" href="2026-06-30.html">2026-06-30</a>
+<a class="" href="2026-06-29.html">2026-06-29</a>
+<a class="" href="2026-06-26.html">2026-06-26</a>
+<a class="" href="2026-06-25.html">2026-06-25</a>
+<a class="" href="2026-06-24.html">2026-06-24</a>
+<a class="" href="2026-06-23.html">2026-06-23</a>
+<a class="" href="2026-06-22.html">2026-06-22</a>
+<a class="" href="2026-06-19.html">2026-06-19</a>
+<a class="" href="2026-06-18.html">2026-06-18</a>
+<a class="" href="2026-06-17.html">2026-06-17</a>
+<a class="" href="2026-06-16.html">2026-06-16</a>
+<a class="" href="2026-06-15.html">2026-06-15</a>
+<a class="" href="2026-06-12.html">2026-06-12</a>
+<a class="" href="2026-06-11.html">2026-06-11</a>
+<a class="" href="2026-06-10.html">2026-06-10</a>
+<a class="" href="2026-06-09.html">2026-06-09</a>
+<a class="" href="2026-06-08.html">2026-06-08</a>
+<a class="" href="2026-06-05.html">2026-06-05</a>
+<a class="" href="2026-06-04.html">2026-06-04</a>
+<a class="" href="2026-06-03.html">2026-06-03</a>
+<a class="" href="2026-06-02.html">2026-06-02</a>
+<a class="" href="2026-06-01.html">2026-06-01</a>
+<a class="" href="2026-05-29.html">2026-05-29</a>
+<a class="" href="2026-05-28.html">2026-05-28</a>
+<a class="" href="2026-05-27.html">2026-05-27</a>
+<a class="" href="2026-05-26.html">2026-05-26</a>
+<a class="" href="2026-05-25.html">2026-05-25</a>
+<a class="" href="2026-05-22.html">2026-05-22</a>
+<a class="" href="2026-05-21.html">2026-05-21</a>
+<a class="" href="2026-05-20.html">2026-05-20</a>
+<a class="" href="2026-05-19.html">2026-05-19</a>
+<a class="" href="2026-05-18.html">2026-05-18</a>
+<a class="" href="2026-05-15.html">2026-05-15</a>
+<a class="" href="2026-05-14.html">2026-05-14</a>
+<a class="" href="2026-05-13.html">2026-05-13</a>
+<a class="" href="2026-05-12.html">2026-05-12</a>
+<a class="" href="2026-05-11.html">2026-05-11</a>
+<a class="" href="2026-05-08.html">2026-05-08</a></nav>
+          </aside>
+          <article class="report-document">
+            <h1>미국 저가주 거래량 Top 20 뉴스·공시 보고서</h1>
+<ul>
+<li>기준 거래일: 2026-11-04</li>
+<li>생성 시각: 2026-11-06 00:14:06 KST</li>
+<li>선정 기준: 미국 정규장 종가 1달러 이상 10달러 이하, 거래량 많은 순</li>
+<li>뉴스/공시 조회 범위: 최근 5일</li>
+</ul>
+<h2>Top 20 요약</h2>
+<div class="table-wrap"><table><thead><tr><th>순위</th><th>티커</th><th>회사</th><th>종가</th><th>거래량</th><th>변동률</th><th>최근 뉴스</th><th>실적/공시</th></tr></thead><tbody><tr><td class="">1</td><td class="">CRIS</td><td class=""><a class="detail-link" href="#stock-cris">Curis Inc.</a></td><td class="">$1.11</td><td class="">163,533,354</td><td class="positive"><span class="positive">+55.48%</span></td><td class="">4</td><td class=""><a class="detail-link" href="#stock-cris">없음</a></td></tr><tr><td class="">2</td><td class="">PLUG</td><td class=""><a class="detail-link" href="#stock-plug">Plug Power Inc.</a></td><td class="">$1.46</td><td class="">105,272,461</td><td class="positive"><span class="positive">+3.55%</span></td><td class="">4</td><td class=""><a class="detail-link" href="#stock-plug">없음</a></td></tr><tr><td class="">3</td><td class="">CIFR</td><td class=""><a class="detail-link" href="#stock-cifr">Cipher Digital Inc.</a></td><td class="">$6.50</td><td class="">103,834,787</td><td class="negative"><span class="negative">-19.95%</span></td><td class="">4</td><td class=""><a class="detail-link" href="#stock-cifr">없음</a></td></tr><tr><td class="">4</td><td class="">GRAB</td><td class=""><a class="detail-link" href="#stock-grab">Grab Holdings Limited Class A</a></td><td class="">$3.36</td><td class="">98,859,593</td><td class="positive"><span class="positive">+7.69%</span></td><td class="">0</td><td class=""><a class="detail-link" href="#stock-grab">없음</a></td></tr><tr><td class="">5</td><td class="">FTCI</td><td class=""><a class="detail-link" href="#stock-ftci">FTC Solar Inc.</a></td><td class="">$1.38</td><td class="">97,298,450</td><td class="negative"><span class="negative">-4.83%</span></td><td class="">4</td><td class=""><a class="detail-link" href="#stock-ftci">없음</a></td></tr><tr><td class="">6</td><td class="">SNAP</td><td class=""><a class="detail-link" href="#stock-snap">Snap Inc. Class A</a></td><td class="">$5.92</td><td class="">80,627,993</td><td class="positive"><span class="positive">+5.90%</span></td><td class="">4</td><td class=""><a class="detail-link" href="#stock-snap">없음</a></td></tr><tr><td class="">7</td><td class="">BBD</td><td class=""><a class="detail-link" href="#stock-bbd">Banco Bradesco Sa</a></td><td class="">$2.57</td><td class="">79,286,441</td><td class="positive"><span class="positive">+4.05%</span></td><td class="">3</td><td class=""><a class="detail-link" href="#stock-bbd">없음</a></td></tr><tr><td class="">8</td><td class="">NOK</td><td class=""><a class="detail-link" href="#stock-nok">Nokia Corporation Sponsored</a></td><td class="">$8.26</td><td class="">61,623,782</td><td class="negative"><span class="negative">-2.59%</span></td><td class="">0</td><td class=""><a class="detail-link" href="#stock-nok">없음</a></td></tr><tr><td class="">9</td><td class="">ARRY</td><td class=""><a class="detail-link" href="#stock-arry">Array Technologies Inc.</a></td><td class="">$5.33</td><td class="">59,376,453</td><td class="positive"><span class="positive">+14.87%</span></td><td class="">4</td><td class=""><a class="detail-link" href="#stock-arry">없음</a></td></tr><tr><td class="">10</td><td class="">STLA</td><td class=""><a class="detail-link" href="#stock-stla">Stellantis N.V. Common Shares</a></td><td class="">$4.65</td><td class="">56,610,900</td><td class="positive"><span class="positive">+3.79%</span></td><td class="">0</td><td class=""><a class="detail-link" href="#stock-stla">없음</a></td></tr><tr><td class="">11</td><td class="">RIG</td><td class=""><a class="detail-link" href="#stock-rig">Transocean Ltd (Switzerland)</a></td><td class="">$5.45</td><td class="">53,941,913</td><td class="negative"><span class="negative">-7.63%</span></td><td class="">3</td><td class=""><a class="detail-link" href="#stock-rig">없음</a></td></tr><tr><td class="">12</td><td class="">ONDS</td><td class=""><a class="detail-link" href="#stock-onds">Ondas Inc.</a></td><td class="">$5.27</td><td class="">53,435,209</td><td class="negative"><span class="negative">-8.98%</span></td><td class="">4</td><td class=""><a class="detail-link" href="#stock-onds">없음</a></td></tr><tr><td class="">13</td><td class="">OPEN</td><td class=""><a class="detail-link" href="#stock-open">Opendoor Technologies Inc</a></td><td class="">$1.98</td><td class="">51,366,693</td><td class="positive"><span class="positive">+13.79%</span></td><td class="">4</td><td class=""><a class="detail-link" href="#stock-open">없음</a></td></tr><tr><td class="">14</td><td class="">CHSN</td><td class=""><a class="detail-link" href="#stock-chsn">Chanson International Holding Class A</a></td><td class="">$3.36</td><td class="">51,269,609</td><td class="negative"><span class="negative">-0.59%</span></td><td class="">3</td><td class=""><a class="detail-link" href="#stock-chsn">없음</a></td></tr><tr><td class="">15</td><td class="">EOSE</td><td class=""><a class="detail-link" href="#stock-eose">Eos Energy Enterprises Inc. Class A</a></td><td class="">$2.14</td><td class="">51,212,409</td><td class="positive"><span class="positive">+12.63%</span></td><td class="">0</td><td class=""><a class="detail-link" href="#stock-eose">없음</a></td></tr><tr><td class="">16</td><td class="">MARA</td><td class=""><a class="detail-link" href="#stock-mara">MARA Holdings Inc.</a></td><td class="">$6.87</td><td class="">46,705,901</td><td class="negative"><span class="negative">-4.05%</span></td><td class="">4</td><td class=""><a class="detail-link" href="#stock-mara">없음</a></td></tr><tr><td class="">17</td><td class="">NIO</td><td class=""><a class="detail-link" href="#stock-nio">NIO Inc. American depositary shares each representing one Class A ordinary share</a></td><td class="">$3.30</td><td class="">46,076,959</td><td class="positive"><span class="positive">+3.45%</span></td><td class="">0</td><td class=""><a class="detail-link" href="#stock-nio">없음</a></td></tr><tr><td class="">18</td><td class="">TE</td><td class=""><a class="detail-link" href="#stock-te">T1 Energy Inc.</a></td><td class="">$2.73</td><td class="">44,859,473</td><td class="negative"><span class="negative">-3.53%</span></td><td class="">3</td><td class=""><a class="detail-link" href="#stock-te">없음</a></td></tr><tr><td class="">19</td><td class="">AMC</td><td class=""><a class="detail-link" href="#stock-amc">AMC Entertainment Holdings Inc. Class A</a></td><td class="">$3.52</td><td class="">43,649,408</td><td class="positive"><span class="positive">+7.32%</span></td><td class="">0</td><td class=""><a class="detail-link" href="#stock-amc">없음</a></td></tr><tr><td class="">20</td><td class="">JBLU</td><td class=""><a class="detail-link" href="#stock-jblu">JetBlue Airways Corporation</a></td><td class="">$3.56</td><td class="">43,246,471</td><td class="positive"><span class="positive">+11.95%</span></td><td class="">4</td><td class=""><a class="detail-link" href="#stock-jblu">없음</a></td></tr></tbody></table></div>
+<h2>회사별 상세</h2>
+<h3 id="stock-cris">1. Curis Inc. (CRIS)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Health Care / Biotechnology: Biological Products (No Diagnostic Substances)</li>
+<li>종가: $1.11</li>
+<li>거래량: 163,533,354</li>
+<li>변동률: <span class="positive">+55.48%</span></li>
+<li>웹사이트: https://www.curis.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Curis Inc.는 Health Care 섹터의 Biotechnology: Biological Products (No Diagnostic Substances) 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-11-05 02:05 | Benzinga | <a href="https://news.google.com/rss/articles/CBMiugFBVV95cUxQTGpFVUVWVjJJV25NbVZvOGxYLXh5OEZwY01IQW0tYjRoLXd3SFh6YW1Kbnk0NjJqN2JDRlFmR252emJWWm5ENjMwd3ZqNy16cTNUMlRkdEZQSk5xVGp0ZzR2Rkp2bVF1NlRjc0xSTFJvVXlGSC1xY1hvX29OWWlvRFM5TkFZTEphUWotRmhJNFRma1pBaHYxSU5aRGx1SFhXQ0RTczdZTmxVVUtJQWk1ZGVNU29YVXVhaHc?oc=5" target="_blank" rel="noopener">12 Health Care Stocks Moving In Wednesday&#x27;s Intraday Session - Benzinga</a> - 요약: 제목: 12 Health Care Stocks Moving In Wednesday&#x27;s Intraday Session - Benzinga 요약 후보: Curis Inc. 관련 기사로, Benzinga</li>
+<li>2026-11-04 21:33 | Timothy Sykes | <a href="https://news.google.com/rss/articles/CBMibkFVX3lxTE5UOWlob3lIT0JrZVhwVFRIdzBMMHZ0Rk1WdUpCejFNTDhuYXV3RmFPVXVrZ05paTFPNHdoR1pTeE55Qm5jcERWQWVsTmhvQ1lFOWJ1bTdxTjEwN3BqNlI1b2owNHpwb01YYnA0TGtn?oc=5" target="_blank" rel="noopener">Curis (CRIS) Jumps As Traders Eye Proxy And Breakout - Timothy Sykes</a> - 요약: 제목: Curis (CRIS) Jumps As Traders Eye Proxy And Breakout - Timothy Sykes 요약 후보: Curis Inc. 관련 기사로, Timothy Sykes</li>
+<li>2026-11-04 02:05 | Benzinga | <a href="https://news.google.com/rss/articles/CBMitwFBVV95cUxNV0pfbVh4ZXBrOGxLZUNtRGFsYnpLcllMQ2tYeUhpa1RqSzIyd0xJOG9QZ0NsZGZqUVA2WGVqT1QyZXVUR3B3a1lkMV9obm9ZZm5MTzl1VU1YdFowM2dXWE1tWWV3MmtNalJRNFJlR1lNa1NieVRBQVhFR0MwRk94WTBuWXhTbHB6Q0xqSTUwUkxfWlctaDBkLUYxd1BGLXBzaGhMSjJzODhaT1htUUFsX1RFR2dOT2M?oc=5" target="_blank" rel="noopener">12 Health Care Stocks Moving In Tuesday&#x27;s Intraday Session - Benzinga</a> - 요약: 제목: 12 Health Care Stocks Moving In Tuesday&#x27;s Intraday Session - Benzinga 요약 후보: Curis Inc. 관련 기사로, Benzinga</li>
+<li>2026-11-04 21:53 | Timothy Sykes | <a href="https://news.google.com/rss/articles/CBMiTEFVX3lxTE03RWRPdHo2WldnRm1yNGN2SWdKZEtpZ2ZEU19YWVpMczlLcUlEV3VUQk9KVmIzTnZlNVhUVzdWUkxsdHAwWVlKSEJDOEw?oc=5" target="_blank" rel="noopener">Curis Inc. (CRIS) Stock Price \| Live Quotes &amp; Charts \| NASDAQ - Timothy Sykes</a> - 요약: 제목: Curis Inc. (CRIS) Stock Price \| Live Quotes &amp; Charts \| NASDAQ - Timothy Sykes 요약 후보: Curis Inc. 관련 기사로, Timothy Sykes</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-plug">2. Plug Power Inc. (PLUG)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Energy / Industrial Machinery/Components</li>
+<li>종가: $1.46</li>
+<li>거래량: 105,272,461</li>
+<li>변동률: <span class="positive">+3.55%</span></li>
+<li>웹사이트: https://www.plugpower.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Plug Power Inc.는 Energy 섹터의 Industrial Machinery/Components 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-11-05 00:11 | Yahoo Finance UK | <a href="https://news.google.com/rss/articles/CBMiYkFVX3lxTE51Sk1SYzlES3lwc3hSLVZxbzNtZEFEaUpURXJ4T004ZTg0NE5QV2kyVGRlWkpPdTFRR28waU1Yb1VCczIxSDI5UjhVWnVyNkxVU2E2OVNoZktUbHVKemZxR0JB?oc=5" target="_blank" rel="noopener">Plug Power Inc. (PLUG) stock price, news, quote and history - Yahoo Finance UK</a> - 요약: 제목: Plug Power Inc. (PLUG) stock price, news, quote and history - Yahoo Finance UK 요약 후보: Plug Power Inc. 관련 기사로, Yahoo Finance UK</li>
+<li>2026-11-04 07:28 | MarketWatch | <a href="https://news.google.com/rss/articles/CBMi3AFBVV95cUxPaWhQUVNmWVBpYk9RalB0Ml9UUlZnLWhKN0hmTHp4ZzNUV2ZoYlg0MEtyQm5jOE1iU05Xbi1rXy15UXdHTmViZFVnMmJHWTF0RHJwaDU1NXNtZk80NVFtLUhsdmlIX09kZDBUUjl1RXZYTjc4LUNFVm4zOUNjN3gtTjdpdDlSa1JEN3RfcFNwLXRZWUpXek5vS1R0R1d0YVFvalg2RDZ6ZTY1UXZRZHp1dnAtbVVHa3BDMFR0YlctZkM3cy00MW1uTVlsQkxkS3BsaDc2U1ZBOFJRRkRf?oc=5" target="_blank" rel="noopener">Plug Power Inc. stock outperforms competitors on strong trading day - MarketWatch</a> - 요약: 제목: Plug Power Inc. stock outperforms competitors on strong trading day - MarketWatch 요약 후보: Plug Power Inc. 관련 기사로, MarketWatch</li>
+<li>2026-11-03 03:12 | Investing.com | <a href="https://news.google.com/rss/articles/CBMiogFBVV95cUxPRXlxRjJreHRZeTJsakFyQnQtTkFHb0hVb3pfcENSV1ZCU1hISWM4dC1CUm02dXlpcC1GRDlSNEhmamx1dHh4RXRoUkF1cGhTeHVBbDN3UEhUVGsydnlMamc0ZXV2cGp5UDFGcHo5azAxb1ZuTVNlS01EbV83LU1qTTN5UUxjTnQwWlZBWmpzby1aNmFVUlhhRjFFeFlHQTg3VkE?oc=5" target="_blank" rel="noopener">Plug Power stock hits 52-week low at 1.34 USD - Investing.com</a> - 요약: 제목: Plug Power stock hits 52-week low at 1.34 USD - Investing.com 요약 후보: Plug Power Inc. 관련 기사로, Investing.com</li>
+<li>2026-11-04 20:50 | Benzinga | <a href="https://news.google.com/rss/articles/CBMipwFBVV95cUxNSHdlUEhseFEwRWN2VThDdkNrbjh3RkY4cDNYQjY3bVQ1OExac3pUaXoxeTF1T3lPek1Gek1GSGpVUGVMY2ptWms0T3pKSktRYVFxcGNUYXpYV3I4blVjT0lVTlFHRjVxT1o1ZlJnWXZrWVpKRERqMi1wU2dTOVlEb1pMZ2EyVWY2NjE5MC1xOG1fajMwbDNoazBNNzJEVjF0cWZOd01TZw?oc=5" target="_blank" rel="noopener">Why Is Plug Power Stock Gaining Wednesday? - Benzinga</a> - 요약: 제목: Why Is Plug Power Stock Gaining Wednesday? - Benzinga 요약 후보: Plug Power Inc. 관련 기사로, Benzinga</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-cifr">3. Cipher Digital Inc. (CIFR)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Finance / Finance: Consumer Services</li>
+<li>종가: $6.50</li>
+<li>거래량: 103,834,787</li>
+<li>변동률: <span class="negative">-19.95%</span></li>
+<li>웹사이트: https://www.cipherdigital.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Cipher Digital Inc.는 Finance 섹터의 Finance: Consumer Services 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-11-06 00:04 | Benzinga | <a href="https://news.google.com/rss/articles/CBMirwFBVV95cUxPMFJEbzRUVmpRVEZhZ2VRQ0tRNGdaajExQURoMWNPU255dlc5QkZ2eWhtNW0xaWk4QlZMbEpnUk5yalZsbjRuQkpOeUlETzZ2OWRxMzc0RHRMU0dfYUpmLV9DcTE2M2YzR0wzX0lKaWRDWko4ZTJ6TlM5WGduMnJtRHlrbElDX1dyelVQcjQ5RjhhUDM5YTAyWnlpTnhTYWJfc1F6aTJvckRXSVpvRm5F?oc=5" target="_blank" rel="noopener">Why Is Cipher Digital Stock Falling on Thursday? - Benzinga</a> - 요약: 제목: Why Is Cipher Digital Stock Falling on Thursday? - Benzinga 요약 후보: Cipher Digital Inc. 관련 기사로, Benzinga</li>
+<li>2026-11-03 12:13 | Yahoo Finance | <a href="https://news.google.com/rss/articles/CBMilgFBVV95cUxQZlJWbFpvX083cjhvQmRlTmlGZVhZV21ZUHU5WmJPMmdmYUYtek9yZ2tFNXNjNkxIWWM1dEFhV2l6U3dRWGlDYW5JNVVSUTBGa3hjTjRRQm11c2pNTTZYb0NvTnpJZEVjSGg1enlmaDYwYkg1X3Nvakcwc0VkSlU4NkZXTzBpTk9ZNXFicVNEQWdyWk9WdWc?oc=5" target="_blank" rel="noopener">Cipher Digital Inc (CIFR) (Q3 2026) Earnings Call Highlights: $16. ... - Yahoo Finance</a> - 요약: 제목: Cipher Digital Inc (CIFR) (Q3 2026) Earnings Call Highlights: $16. ... - Yahoo Finance 요약 후보: Cipher Digital Inc. 관련 기사로, Yahoo Finance</li>
+<li>2026-11-02 21:53 | Seeking Alpha | <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxNWUZfQ0Zia0NUMk0tNUo3aURPNGtKanlOcm1xRTNvckFfT3BjUWlFdEtTZy1GeldlNS1yVHk2U0d3QmlzR0UyYUFtbWs1SEw5WUVUZUgxRWR4OHBYbEJUclRhckNnay1OVkVYTDU0cUFhc3BQRVNlMTA4Q240UGpoOWZTdklsc19uYjJMUkRBYXJ6c0Z2VGVvU041Nmd0cEk?oc=5" target="_blank" rel="noopener">Cipher Digital earnings beat, revenue misses as HPC starts up (CIFR:NASDAQ) - Seeking Alpha</a> - 요약: 제목: Cipher Digital earnings beat, revenue misses as HPC starts up (CIFR:NASDAQ) - Seeking Alpha 요약 후보: Cipher Digital Inc. 관련 기사로, Seeking Alpha</li>
+<li>2026-11-05 19:22 | Simply Wall St | <a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxNU09INjJJY1VicmRTczVHUzJJT3JPQ2RaQXRnaElQVm5peks4dVBFZXVaN013dmdmTUZvbHN2M0dSc0hhbHVPSzBiVWFYQmlJR0t2ZDRPTVpwd0E4Y3RsQkhna095bjJ4LS1FXzZrQnNZR2lENGtfalJBc0YxQURMWUktQkxxbVZyMXJDcHVUcE9xM3NGeHFGQ3lJa1pnRm1KYUllQklnelhjYXh6S1BaWjdOQjhrTEFlSlRzVDUyM0pxOUxLNmRXTHVhLXlSZ9IB0wFBVV95cUxQa3JwNlBMVnI1eGptV1htSU16OEJuRkpGdTNMVzdGbW5mTWNmd2xzVHN4d1JsaXctOGZGME9LR2hhVVlCUHVlaEloTkNTYTByMVphWHRhY0lJdGdVQTIzYjVJVWZ6WWVjdm9zc2RldUZseFl3TnR6MUFFTjVucnAzTC1HU2dNbmFOcnFkV2V2dnRGaklUTFM2Yi1Ocmk3MkFHLUVrQnp2ZXhSS2xjY1B0OUxrVHdLOE05enM0OEtXMEVrZGxfYVR4bW9vQjl5Wmg4b09z?oc=5" target="_blank" rel="noopener">Cipher Digital Inc. Beat Analyst Estimates: See What The Consensus Is Forecasting For Next Year - Simply Wall St</a> - 요약: 제목: Cipher Digital Inc. Beat Analyst Estimates: See What The Consensus Is Forecasting For Next Year - Simply Wall St 요약 후보: Cipher Digital Inc. 관련 기사로, Simply Wall St</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-grab">4. Grab Holdings Limited Class A (GRAB)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Consumer Discretionary / Business Services</li>
+<li>종가: $3.36</li>
+<li>거래량: 98,859,593</li>
+<li>변동률: <span class="positive">+7.69%</span></li>
+<li>웹사이트: https://www.grab.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Grab Holdings Limited Class A는 Consumer Discretionary 섹터의 Business Services 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>최근 5일 내 확인된 뉴스 없음 또는 뉴스 수집 실패</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-ftci">5. FTC Solar Inc. (FTCI)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Technology / Semiconductors</li>
+<li>종가: $1.38</li>
+<li>거래량: 97,298,450</li>
+<li>변동률: <span class="negative">-4.83%</span></li>
+<li>웹사이트: https://www.ftcsolar.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>FTC Solar Inc.는 Technology 섹터의 Semiconductors 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-11-05 14:16 | Yahoo Finance | <a href="https://news.google.com/rss/articles/CBMijwFBVV95cUxNakFfOHBBa0czb0dFUzBvdFVNdTJhMUozcjlPMXBFMXZsS0xlbGpXNElNYjU2ZHJhNG54NWg3NlNpOWJnUmFmdXNZeGlTTG5ZRFFDOTFJUzdTem5pbnJ2R2M4RmhVbXhPTloxYkJ5MGhrdzYyZDVTaldPOEgwQng5MWk5cDRzTTZfOHllTHYzbw?oc=5" target="_blank" rel="noopener">FTC Solar Inc (FTCI) (Q3 2026) Earnings Call Highlights: Record-Breaking Revenue Guidance and ... - Yahoo Finance</a> - 요약: 제목: FTC Solar Inc (FTCI) (Q3 2026) Earnings Call Highlights: Record-Breaking Revenue Guidance and ... - Yahoo Finance 요약 후보: FTC Solar Inc. 관련 기사로, Yahoo Finance</li>
+<li>2026-11-05 02:06 | Investorideas.com | <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxPMWF4TVVWdjRReFRPN1NxQUxOTVN6ZGRuSDRlQlBpOG1VWGxGNmljb01VSXctdGpxUWpITzBtRFlmZDBqZjNjbHBsd0xvNEJIVWJxNHp5Tjl3LU5BR0h1WHJaMWFoc2I5b09RelR5V0tLZUE2Q0lzY3lENGpvU0NGRmY2ZkMwbmIzczZuUHhoLVNDb1YtRmtvSHRxMl96eG82SmR5Q28yR2JydmowUURSSFF1V2FIMWlKVkJrQ3dYcUlWUWVaQl9Fcw?oc=5" target="_blank" rel="noopener">Solar Stock FTC Solar (Nasdaq: FTCI) Surges on Third Quarter News - Investorideas.com</a> - 요약: 제목: Solar Stock FTC Solar (Nasdaq: FTCI) Surges on Third Quarter News - Investorideas.com 요약 후보: FTC Solar Inc. 관련 기사로, Investorideas.com</li>
+<li>2026-11-05 00:57 | Schaeffer&#x27;s Investment Research | <a href="https://news.google.com/rss/articles/CBMisAFBVV95cUxNb2RzMXhxX3MzbkkwNWlBVVl0MzFIUmV4Z2x6OG9oYnpJeklvRmgxbjRWYXlCT21rWG9PVnlMakdlWDFLYUJEdUJKRFhDOGxxOG5XWjlLNXl4NWZGY3Jxbkt2SW9MTGhMVk1KSHB4RE9leThkdTZzZ05zZFN3M0lHbHdwMzZMNDZ5Z25zSWRIREptSDZCQ2xDNUdWUGFrTC1lSTBSR1ZvNWxyRzJEZmR2YQ?oc=5" target="_blank" rel="noopener">3 Solar Names Seeing Unusual Options Volume Today - Schaeffer&#x27;s Investment Research</a> - 요약: 제목: 3 Solar Names Seeing Unusual Options Volume Today - Schaeffer&#x27;s Investment Research 요약 후보: FTC Solar Inc. 관련 기사로, Schaeffer&#x27;s Investment Research</li>
+<li>2026-11-05 13:55 | The Globe and Mail | <a href="https://news.google.com/rss/articles/CBMi0AFBVV95cUxNUS1rb1RsZ2NpTEhJODNILWxrZXROeEhxT19PLVQ1UmZFVGFSRWRMV3JVemlvamtSOERhb2s5ZjhsWUxwWXQtTHFyaG5uZUFuRUxHX0xmSTMzc3JobC0yXy1DQUl3dF8yYUQ3b1VVeC1XYjByUWNzMmxQMjlETWZhTEV5cDJ6M0dpUWJ6ZFNiYnRudTJCS0tMd3lsN00xQ3Q2c1hULWxUYmJUMmN2TW43bERhV0tnUHljejhnMy13MWxMMVUtbXp1N3dwdUpUUVVp?oc=5" target="_blank" rel="noopener">Solar Tracker Stock Jumps 42% as Profitability Nears - The Globe and Mail</a> - 요약: 제목: Solar Tracker Stock Jumps 42% as Profitability Nears - The Globe and Mail 요약 후보: FTC Solar Inc. 관련 기사로, The Globe and Mail</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-snap">6. Snap Inc. Class A (SNAP)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Technology / Computer Software: Programming, Data Processing</li>
+<li>종가: $5.92</li>
+<li>거래량: 80,627,993</li>
+<li>변동률: <span class="positive">+5.90%</span></li>
+<li>웹사이트: https://www.snap.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Snap Inc. Class A는 Technology 섹터의 Computer Software: Programming, Data Processing 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-11-05 19:45 | Yahoo Finance | <a href="https://news.google.com/rss/articles/CBMingFBVV95cUxQZ3YxNVRqT2x2NG1ELUotaDhjcmJ3ZGpVdFZMR2llZEtpOFZ3azlGczlPaEx6Y200bE04bkJvbGhmeVgzV0lQRWpLNU9pdUlYU1lBRzBJdElaN2FYVHF6bTI3WC1FbFBYLWxQT3E0MjlRLWZORkJTZ18tVlNuWHJGb3hLMVhYOUxEaTVFWjE2TVNPY3RMajdmZG5RZkd3Zw?oc=5" target="_blank" rel="noopener">Snap tumbles on revenue, user growth miss; announces metric shift - Yahoo Finance</a> - 요약: 제목: Snap tumbles on revenue, user growth miss; announces metric shift - Yahoo Finance 요약 후보: Snap Inc. Class A 관련 기사로, Yahoo Finance</li>
+<li>2026-11-05 06:45 | Bloomberg.com | <a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxQdXBDU1VjZTRlZ1VqdkJQN244emFrSWlkVTlDM09IaTZqYzA4ZnlKeWpIampoMkZEUkE0TU9pWlVnQ3Z5akRxeVctOVFndnZCTEFzaUJuRG9MUlhZRjVSSzBNQzdQU1NZNUpoRl90X1JtdUpXbWk2aV9QX3hSU1JiN1ZCTEdlZUtiWUdBNmFiaFhtbzVaR1dOWFphODk1dVhDc3UzU21YbjdmcnRXbE9QRXU1cw?oc=5" target="_blank" rel="noopener">Snap Declines After Daily User Growth Falls Short of Estimates - Bloomberg.com</a> - 요약: 제목: Snap Declines After Daily User Growth Falls Short of Estimates - Bloomberg.com 요약 후보: Snap Inc. Class A 관련 기사로, Bloomberg.com</li>
+<li>2026-11-05 21:05 | Seeking Alpha | <a href="https://news.google.com/rss/articles/CBMiuAFBVV95cUxPNUNxZkx1azVVdmtDY3Z0LWZXOEVpbjViMjRLbGpseGY1emF0Zmt0Zk90VDVVMnlkbDAwTXJnM1FzWkFIRDdZN1I3VC1JMDBFX1RqVWR2eHNrTnBMakc5SS1UOXQtczNzN1hVVURQUnR0ZnFQaDZZM25yUG9VN3V1RVVFRW9xMlg1akhjUERXcnl6aEI5NzJMVnZaT0VSQnJ4YVZNbENLSldxdjJZX3E4VDdzaW5jQ1ct?oc=5" target="_blank" rel="noopener">Snap: Flat User Trends and Updated Reporting Metrics Are Concerning (Downgrade) (SNAP) - Seeking Alpha</a> - 요약: 제목: Snap: Flat User Trends and Updated Reporting Metrics Are Concerning (Downgrade) (SNAP) - Seeking Alpha 요약 후보: Snap Inc. Class A 관련 기사로, Seeking Alpha</li>
+<li>2026-11-04 21:26 | Benzinga | <a href="https://news.google.com/rss/articles/CBMikAJBVV95cUxQdVhnZUtZQUZ5WXFLN2lsREtmMmxYMFZMT3ZMa09nNnc3RUFENTdJTERnVVBBVjVRcTd3MzhlZVZyS1dQWWlMSUpWajBDcnVDdFgxakdlRGsyZGxaZlhlQkFPNVRmUUhseTNkc2VzZ2RIcHF3SlVmek40ZmwyczdrOWs2VENQd2dybUtkNHJ4V08wX0NFY1Y4T1NpT1U1ekd2Tks0Vm82eElkMmxva3huV3JsWEdMb19LYzdtbWc0Nm9WOHVfLUY4WEFkaXdqVkNlZFdvYUw0NTdTWWQ2cGQ2TURWTUVvZkxpa0JDWFQ4NXlhMXlZQmlxNnRvNWJsRnlORGJ1emx3bEg3SnBMOVZrTw?oc=5" target="_blank" rel="noopener">Snap Likely To Report Higher Q3 Revenue; These Most Accurate Analysts Revise Forecasts Ahead Of Earnings Call - Benzinga</a> - 요약: 제목: Snap Likely To Report Higher Q3 Revenue; These Most Accurate Analysts Revise Forecasts Ahead Of Earnings Call - Benzinga 요약 후보: Snap Inc. Class A 관련 기사로, Benzinga</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-bbd">7. Banco Bradesco Sa (BBD)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Finance / Major Banks</li>
+<li>종가: $2.57</li>
+<li>거래량: 79,286,441</li>
+<li>변동률: <span class="positive">+4.05%</span></li>
+<li>웹사이트: https://www.bradescori.com.br</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Banco Bradesco Sa는 Finance 섹터의 Major Banks 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-11-01 16:00 | Simply Wall St | <a href="https://news.google.com/rss/articles/CBMibkFVX3lxTE5BTnh6LWhNS2I2RXd6ekZsNE5MaElFTjRFM0xKVkk1bTJDQU9XTlpfTVJTR2dKWlltN2F0ZEtRTnNGXzBfQTRFbG9rcWVOYW9peVRMSllJN2t2V3pNcnlscl9SdWJTR1ZOZWJaanNR?oc=5" target="_blank" rel="noopener">Banco Bradesco (NYSE:BBD) - Stock Analysis - Simply Wall St</a> - 요약: 제목: Banco Bradesco (NYSE:BBD) - Stock Analysis - Simply Wall St 요약 후보: Banco Bradesco Sa 관련 기사로, Simply Wall St</li>
+<li>2026-11-02 17:51 | MarketBeat | <a href="https://news.google.com/rss/articles/CBMiygFBVV95cUxNT0hFdXlVaGMzVWNlQWxYaFhhOEFzaDlfdTRPZXNRWDRNdWN3d2swZGkzdDlqZl9ZYjZRUHBoU09TM0lncHE0UUFKelU2UTdaTFR5dWVJTDVNTENIS0tSWENwT2k1RlRaSE11bEFuSk1pNHF1bUY5TE1YeGFzRE5RcWxzYW8tYW9uczlkeFBmTEtiOGplVXUxN3VEYnMzbDdfTExscjlPOHIzOVY1a3FaU0JOQzdldS10Ri0wdU45cVV4a0N0WTdNYzJR?oc=5" target="_blank" rel="noopener">Banco Bradesco SA (NYSE:BBD) Stock Has Consensus Price Target of $4.05 - MarketBeat</a> - 요약: 제목: Banco Bradesco SA (NYSE:BBD) Stock Has Consensus Price Target of $4.05 - MarketBeat 요약 후보: Banco Bradesco Sa 관련 기사로, MarketBeat</li>
+<li>2026-11-04 00:05 | MarketBeat | <a href="https://news.google.com/rss/articles/CBMiugFBVV95cUxQY09TR1NiV2ZuRVdyVGgwcUU2Y041RmJIVllTY244RjdtdzlFV2REaTJHZDYzM094RDNwa1F2anpUcmNWdXBHNU9IXzlCQUNVa2VDaXI4Y0UtV2twR2ExaFJEbHM5UzQyaHBlZk1DX08xR3Y2X2FYQW1mT2ZpTlV5eFI5WjhKNmJVLXN4LVJVempxRnNocnNoeWZEUVZxUTBySHo3M2d3Q3ZHVEVTV1RLcUNuMXVXTWR2cFE?oc=5" target="_blank" rel="noopener">Banco Bradesco (NYSE:BBD) Hits New 12-Month Low - Time to Sell? - MarketBeat</a> - 요약: 제목: Banco Bradesco (NYSE:BBD) Hits New 12-Month Low - Time to Sell? - MarketBeat 요약 후보: Banco Bradesco Sa 관련 기사로, MarketBeat</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-nok">8. Nokia Corporation Sponsored (NOK)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Technology / Radio And Television Broadcasting And Communications Equipment</li>
+<li>종가: $8.26</li>
+<li>거래량: 61,623,782</li>
+<li>변동률: <span class="negative">-2.59%</span></li>
+<li>웹사이트: https://www.nokia.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Nokia Corporation Sponsored는 Technology 섹터의 Radio And Television Broadcasting And Communications Equipment 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>최근 5일 내 확인된 뉴스 없음 또는 뉴스 수집 실패</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-arry">9. Array Technologies Inc. (ARRY)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Technology / Semiconductors</li>
+<li>종가: $5.33</li>
+<li>거래량: 59,376,453</li>
+<li>변동률: <span class="positive">+14.87%</span></li>
+<li>웹사이트: https://www.arraytechinc.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Array Technologies Inc.는 Technology 섹터의 Semiconductors 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-11-04 23:31 | Reuters | <a href="https://news.google.com/rss/articles/CBMioAFBVV95cUxOOVd4WnFxc1ZvSS1EcXJ1dEl2NlEydVhsOWhiNExIdER1d3dhLW9LOXdNSFVyaFltYnFzbTIyaUN6ODV2QmRmdUdhYVkyS3lmek95SWpEb1B6RExTSjN6MGJKUFZWMWwyQ0NiOGhoLXZHUjdQSGZWdTliSWNTWTdzUElvYlhUNURvT2xxM3pzU1BDNWNia0t2Snoxd1VTcm5l?oc=5" target="_blank" rel="noopener">ARRAY to combine with Shoals in $1.32 billion all-stock deal - Reuters</a> - 요약: 제목: ARRAY to combine with Shoals in $1.32 billion all-stock deal - Reuters 요약 후보: Array Technologies Inc. 관련 기사로, Reuters</li>
+<li>2026-11-04 21:55 | Yahoo Finance | <a href="https://news.google.com/rss/articles/CBMioAFBVV95cUxQcENSVlJSY1dfSldjQ29CckNwQzhuRks0em5MNXJZc0UzeGFabmFvcDNyVzI0STg1NFBVaHZJSWpCNGc2YkZpMEcwS0VaNXh6UV9ra01CZDg4bkVQYWVBaUFjdF9UdVF2ZzVWMWhvWXk2a3ByMFE4NzRORTZTUUJCTVgtTUJXblU2ZmlvWEFSc29EM2RRLVEzcmRfSmJJVGlI?oc=5" target="_blank" rel="noopener">Array Technologies, Inc. (ARRY) Misses Q3 Earnings Estimates - Yahoo Finance</a> - 요약: 제목: Array Technologies, Inc. (ARRY) Misses Q3 Earnings Estimates - Yahoo Finance 요약 후보: Array Technologies Inc. 관련 기사로, Yahoo Finance</li>
+<li>2026-11-05 23:08 | Seeking Alpha | <a href="https://news.google.com/rss/articles/CBMipAFBVV95cUxPYlQtQzlsTTdYSGJyMnlnNHJBSHVRRXRFVVNIODVaT0d2NnFkM0NMcUExb1ZOQ21VbERMOFFlVFUybkxvVzkxcC1QQ1R5azMyZ2tTMUV1WS1RajdBX0JqUElQalFnaUN0OGl4UENsV21DbTFla0FXeUFpMVk3OWtQM1VDV1F1Tzl6VTZWWTJJeDhrRmRaalFaOGVUNTMyUVpzSDhreg?oc=5" target="_blank" rel="noopener">Array Technologies And Shoals Merger Creates Upside Potential (NASDAQ:ARRY) - Seeking Alpha</a> - 요약: 제목: Array Technologies And Shoals Merger Creates Upside Potential (NASDAQ:ARRY) - Seeking Alpha 요약 후보: Array Technologies Inc. 관련 기사로, Seeking Alpha</li>
+<li>2026-11-05 02:25 | BigGo Finance | <a href="https://news.google.com/rss/articles/CBMidkFVX3lxTE5yUkFRNWluVWtMdTFaSUxGV3FYYXpuMG5QQnBvWnliTVVlUjE2VXlBV0NPaGhHbWRybGZvX3N2dXJvSl9ZTVFjWTVmRlJSZFpDelU2NXplT0JrM3dIbHRISDZzdmlYb1RVU2ZtM0VQUkdPTUZ4dnc?oc=5" target="_blank" rel="noopener">Array Technologies, Shoals Merge in $1.32 Billion All-Stock Solar Deal; ARRY Jumps 17% - BigGo Finance</a> - 요약: 제목: Array Technologies, Shoals Merge in $1.32 Billion All-Stock Solar Deal; ARRY Jumps 17% - BigGo Finance 요약 후보: Array Technologies Inc. 관련 기사로, BigGo Finance</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-stla">10. Stellantis N.V. Common Shares (STLA)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Industrials / Auto Manufacturing</li>
+<li>종가: $4.65</li>
+<li>거래량: 56,610,900</li>
+<li>변동률: <span class="positive">+3.79%</span></li>
+<li>웹사이트: https://www.stellantis.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Stellantis N.V. Common Shares는 Industrials 섹터의 Auto Manufacturing 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>최근 5일 내 확인된 뉴스 없음 또는 뉴스 수집 실패</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-rig">11. Transocean Ltd (Switzerland) (RIG)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Energy / Oil &amp; Gas Production</li>
+<li>종가: $5.45</li>
+<li>거래량: 53,941,913</li>
+<li>변동률: <span class="negative">-7.63%</span></li>
+<li>웹사이트: https://www.deepwater.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Transocean Ltd (Switzerland)는 Energy 섹터의 Oil &amp; Gas Production 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-11-03 23:00 | Yahoo Finance | <a href="https://news.google.com/rss/articles/CBMiigFBVV95cUxOaGd3dlZHTXRnUndqenFJUmlFb3dmelJLZlVSSV9jYkNPY3lHTThSaG9QMnlua09VMFZjVUxYT082TVc2b3BjWDctMXJfdnUxUjVhMUxRY2dXbWV2VkxabUJBMUtLa3JPTWZJcVRXOU5wcHVVY19sdWJnOGxRblJkNUFlRTdpM1V3elE?oc=5" target="_blank" rel="noopener">Transocean Ltd (Switzerland) (RIG) Q3 FY2026 earnings call transcript - Yahoo Finance</a> - 요약: 제목: Transocean Ltd (Switzerland) (RIG) Q3 FY2026 earnings call transcript - Yahoo Finance 요약 후보: Transocean Ltd (Switzerland) 관련 기사로, Yahoo Finance</li>
+<li>2026-11-04 05:47 | Timothy Sykes | <a href="https://news.google.com/rss/articles/CBMigwFBVV95cUxOQ1UwdnltQmh4N19iNXh1T1VXSVczWEREQXlEOVNBYzlHY3NjWFpSdXZ3Y3NyMGFyRUNpQUUyMWJzRkFzc3JFOGtJMElxZkRnLUJxNVJnTGdtZUUzb3dIcU9Gdm1PcXdhRTItbUZIZWYwR0g3OUJJU0RMV3p5aklPcFBROA?oc=5" target="_blank" rel="noopener">RIG Stock Slips As Transocean’s Q3 Earnings Disappoint - Timothy Sykes</a> - 요약: 제목: RIG Stock Slips As Transocean’s Q3 Earnings Disappoint - Timothy Sykes 요약 후보: Transocean Ltd (Switzerland) 관련 기사로, Timothy Sykes</li>
+<li>2026-11-03 04:03 | StocksToTrade | <a href="https://news.google.com/rss/articles/CBMihAFBVV95cUxNX0NrODNtaUlPRk5Rc09RbEFjeEZOdjhqb0RlNjNENVZ5UzlXSmhNb2RPMC1jdldENTJNUy1MX1lIODRwZzBWQ196aUtaczJUblB2bkt5Q3R5aFFEMF9RZjktc05FQ3c5WlU4ZnBnd2l6bFZxNXZ6cjV1aVVhSXhaWGhKZkU?oc=5" target="_blank" rel="noopener">RIG Stock Grinds Higher As Offshore Drilling Momentum Builds - StocksToTrade</a> - 요약: 제목: RIG Stock Grinds Higher As Offshore Drilling Momentum Builds - StocksToTrade 요약 후보: Transocean Ltd (Switzerland) 관련 기사로, StocksToTrade</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-onds">12. Ondas Inc. (ONDS)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Technology / Radio And Television Broadcasting And Communications Equipment</li>
+<li>종가: $5.27</li>
+<li>거래량: 53,435,209</li>
+<li>변동률: <span class="negative">-8.98%</span></li>
+<li>웹사이트: https://www.ondas.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Ondas Inc.는 Technology 섹터의 Radio And Television Broadcasting And Communications Equipment 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-11-05 19:04 | Yahoo Finance Singapore | <a href="https://news.google.com/rss/articles/CBMiUkFVX3lxTFBtYXpTaklLRHo0T3lfSjJ3dUd0MWhveFhXNHgyemZENXVlajF4dzdpQk10SFZlSWtCWlNRUU4tZ2tDSFNDUlRlUUxRb3c3bEpqUlE?oc=5" target="_blank" rel="noopener">Ondas Inc. (ONDS) stock price, news, quote and history - Yahoo Finance Singapore</a> - 요약: 제목: Ondas Inc. (ONDS) stock price, news, quote and history - Yahoo Finance Singapore 요약 후보: Ondas Inc. 관련 기사로, Yahoo Finance Singapore</li>
+<li>2026-11-03 06:15 | CNN | <a href="https://news.google.com/rss/articles/CBMiUEFVX3lxTE9aQWpCeFFjNXlGNi10cXdUVUY3REtzTThPd2FMZHYwNlN3aXpYUlM1LURPdFctdXpMNHJhLTNZUEQ3WDlKR0JwcE9aQWc3NHd3?oc=5" target="_blank" rel="noopener">symbol__ Stock Quote Price and Forecast - CNN</a> - 요약: 제목: symbol__ Stock Quote Price and Forecast - CNN 요약 후보: Ondas Inc. 관련 기사로, CNN</li>
+<li>2026-11-04 22:34 | Yahoo! Finance Canada | <a href="https://news.google.com/rss/articles/CBMiUkFVX3lxTE1zendhMThzTUVoSlNIQlgzcUxjQ0hhUVZ0eDJpRFVZNXNjVng0UXhtRk1zQ1phcVM5TmY5SEdqd1BFSzZWc1N2R2JWb2EtTWNFNlE?oc=5" target="_blank" rel="noopener">Ondas Inc. (ONDS) Stock Price, News, Quote &amp; History - Yahoo! Finance Canada</a> - 요약: 제목: Ondas Inc. (ONDS) Stock Price, News, Quote &amp; History - Yahoo! Finance Canada 요약 후보: Ondas Inc. 관련 기사로, Yahoo! Finance Canada</li>
+<li>2026-11-05 01:33 | Timothy Sykes | <a href="https://news.google.com/rss/articles/CBMibkFVX3lxTE9KNTNCbUxtbDlhMkF2ZVJoUmZsSmt4OVdLSVdmblVUNUhYelVYVVdGTFVyQ3lSVW1IOERNa1VZWjI1UjBCY0tNeWxDYU5IcmdnR0lVdkJkVDlJM0dTUlJpOUFRbDV4dWNKcGh3ZWJR?oc=5" target="_blank" rel="noopener">ONDS Stock Pulls Back As Traders Study Key Levels - Timothy Sykes</a> - 요약: 제목: ONDS Stock Pulls Back As Traders Study Key Levels - Timothy Sykes 요약 후보: Ondas Inc. 관련 기사로, Timothy Sykes</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-open">13. Opendoor Technologies Inc (OPEN)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Finance / Real Estate</li>
+<li>종가: $1.98</li>
+<li>거래량: 51,366,693</li>
+<li>변동률: <span class="positive">+13.79%</span></li>
+<li>웹사이트: https://www.opendoor.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Opendoor Technologies Inc는 Finance 섹터의 Real Estate 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-11-05 03:26 | Benzinga | <a href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxNbGd0LUhIaUVxQ29Pbm8zMG1TRkVtYXNWOE1McGw0UnZQNDI5aUJibDNIUHhOWkpqb0FyazU4X2EtM09KanR3Q1psRHd4V1RNRG1SSHVPZ2plc1dqUGxSeWIwRXN2eE5va0J2a3VXWFV3MkNxMTNCV256ZVNtcXJJSDVuTUtyUjlNc3NYT29FbjVoUlUxNV96UlNsNnEySzRwS1VHcjZvWHFQMVB6czFzWkc3Z0hPc2tReWxvSDVNTUlHOXc?oc=5" target="_blank" rel="noopener">Opendoor Stock Explodes Higher Ahead of Earnings: What&#x27;s Happening? - Benzinga</a> - 요약: 제목: Opendoor Stock Explodes Higher Ahead of Earnings: What&#x27;s Happening? - Benzinga 요약 후보: Opendoor Technologies Inc 관련 기사로, Benzinga</li>
+<li>2026-11-03 01:39 | Benzinga | <a href="https://news.google.com/rss/articles/CBMiogFBVV95cUxPT2lGOS1fbExvN1VDQnF1WXJlYWd3Y3hxWG5HRFdsME5KTktqX29yMl9kbURGQk9PQjFBZW51YnlnZDBUdDBtMnVGTVRYc28tdXVuZWNDYVlKQV9TTXo5Y2hmcnVYUnd3Y05PaV9XbmR2VXp6cHg1RTJEdTJLSlVNN1BXNkVJOTlLWVZUOVhkbWdXdWl2bHEwLXI4eGhWVmgxZ3c?oc=5" target="_blank" rel="noopener">Why Is Opendoor Stock Surging on Monday? - Benzinga</a> - 요약: 제목: Why Is Opendoor Stock Surging on Monday? - Benzinga 요약 후보: Opendoor Technologies Inc 관련 기사로, Benzinga</li>
+<li>2026-11-05 04:02 | Timothy Sykes | <a href="https://news.google.com/rss/articles/CBMihgFBVV95cUxNMlN3SVRZUkNDMnYyZGI1N2JMQlZNeENxdGM3WnZjblJrS3BoUGVzTEp2M1M0ZUR4RUpTeGJyckIzVFVWOXpRNXFtckNRclV2dERqcVNQajZZN0tfckV5MndkMDE4eF9PZXF2OExoYVpzZm1FYm1GTTc0TjZpYWVvM2pWSDdpQQ?oc=5" target="_blank" rel="noopener">OPEN Stock Firms Up As Opendoor Adds New Director And Plans Q3 “Financial Open House” - Timothy Sykes</a> - 요약: 제목: OPEN Stock Firms Up As Opendoor Adds New Director And Plans Q3 “Financial Open House” - Timothy Sykes 요약 후보: Opendoor Technologies Inc 관련 기사로, Timothy Sykes</li>
+<li>2026-11-03 01:57 | scanx.trade | <a href="https://news.google.com/rss/articles/CBMivAFBVV95cUxNWUh0b0hzdEtPZjBkTWRTRTk1QjdyS2VDRmFacW9saVE0ZVVkcVUwM3RiaU56NnAyRnB3SUV3ekc2RHh0MV83M04xNXp6SDQ0ajU2d1FHeW1rMU9ta3RSWU1odzZ3cmk2WWI3U21kejM4Wk1WOUVlZ0hjX0ZOc3VRTzFVR2JVdGRqekx6azJ5c2h0SnhMa2I4eVZ2QjByM0Nfak9YRG9hNGM2Wk5ST21wNW9iNUJvM0Fhd2ZWdA?oc=5" target="_blank" rel="noopener">Opendoor Technologies Q3 Earnings: Stock rises 5.56% ahead of report - scanx.trade</a> - 요약: 제목: Opendoor Technologies Q3 Earnings: Stock rises 5.56% ahead of report - scanx.trade 요약 후보: Opendoor Technologies Inc 관련 기사로, scanx.trade</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-chsn">14. Chanson International Holding Class A (CHSN)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Consumer Staples / Packaged Foods</li>
+<li>종가: $3.36</li>
+<li>거래량: 51,269,609</li>
+<li>변동률: <span class="negative">-0.59%</span></li>
+<li>웹사이트: https://ir.chanson-international.net/companyinform</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Chanson International Holding Class A는 Consumer Staples 섹터의 Packaged Foods 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-11-04 22:34 | TipRanks | <a href="https://news.google.com/rss/articles/CBMihAFBVV95cUxOcndQLW5SWDloVmMzZGxYakxqUDNuTVJQcUYtZ1F3Q3hlU29TcjFQcEpBT0tEUGxiMklYRHZVYTFmdG1mWEE4Ukx5d3RCd3lSS2JHOXBvZ2o4RGVuTXpVckNBdnUxQnFDQ2hBRFVKcW5wWTRSSTdtVjg5eVM2ZDRUcjJmUjg?oc=5" target="_blank" rel="noopener">3 Penny Stocks to Watch Today, November 4 - TipRanks</a> - 요약: 제목: 3 Penny Stocks to Watch Today, November 4 - TipRanks 요약 후보: Chanson International Holding Class A 관련 기사로, TipRanks</li>
+<li>2026-11-04 22:43 | TipRanks | <a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxOU0g5R3FlcHBic21oN3ZieEJMOGpZSkxhS3BLZjNqYTBybmpfN1ZUclllbEN0bGl2WDdNMjJ6bmtZaFh5Q3pNbllKZ0ZQRVJoWFc0RzNRbGVUOU1tZkVwRmxzY0piN1cyWnlwZWl4aDRoTlhPVXliNHZlSjZhODFfcjNoY0FDWmRnTEJZQlBWQVBMMFlfN2lOUGljU2M1RGltdkRz?oc=5" target="_blank" rel="noopener">Kraft Heinz Stock (KHC) Heats Up as Coffee Business Goes Private for $650M - TipRanks</a> - 요약: 제목: Kraft Heinz Stock (KHC) Heats Up as Coffee Business Goes Private for $650M - TipRanks 요약 후보: Chanson International Holding Class A 관련 기사로, TipRanks</li>
+<li>2026-11-03 17:00 | TipRanks | <a href="https://news.google.com/rss/articles/CBMi2AFBVV95cUxQZGtEVTZPNVZSUHJZVnFWdGVUY3NTOUNDY1drSFVwUl94YnpscTdDN2pFejZBY2hyOGlRRXItT0swMUgwRTlNQk9kMWFlMnJLemMwZ0lzc1NYdWhPTDZYUUlxbTZYSDYweWZpR0Y5YVB3ZEtoX2JrNHQ5dWJJbk9JOE9XNklHSERRYWVNNjRmX2xBN2dCR2hOWDhOV1d4M0xKcG9ILTliaE8xZnlUZXRyQ2h4bE5scTNpZVNSRkxEemI0eUgtcndUN05HWm1uWTVzb0V4elhZUjM?oc=5" target="_blank" rel="noopener">Recon Technology Sets December 4, 2026 AGM to Reshape Capital Structure and Shift Domicile - TipRanks</a> - 요약: 제목: Recon Technology Sets December 4, 2026 AGM to Reshape Capital Structure and Shift Domicile - TipRanks 요약 후보: Chanson International Holding Class A 관련 기사로, TipRanks</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-eose">15. Eos Energy Enterprises Inc. Class A (EOSE)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Miscellaneous / Industrial Machinery/Components</li>
+<li>종가: $2.14</li>
+<li>거래량: 51,212,409</li>
+<li>변동률: <span class="positive">+12.63%</span></li>
+<li>웹사이트: https://www.eose.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>Eos Energy Enterprises Inc. Class A는 Miscellaneous 섹터의 Industrial Machinery/Components 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>최근 5일 내 확인된 뉴스 없음 또는 뉴스 수집 실패</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-mara">16. MARA Holdings Inc. (MARA)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Finance / Finance: Consumer Services</li>
+<li>종가: $6.87</li>
+<li>거래량: 46,705,901</li>
+<li>변동률: <span class="negative">-4.05%</span></li>
+<li>웹사이트: https://www.mara.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>MARA Holdings Inc.는 Finance 섹터의 Finance: Consumer Services 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-11-05 16:06 | Yahoo! Finance Canada | <a href="https://news.google.com/rss/articles/CBMiUkFVX3lxTE56UmZHMlpjQUhSbmFmdS1scTVUdmRtU2hEVmpNMjVSd2h3RWZHdUNneE5TM2dwZzRNSm9GdFhyVXZyWkZuUThsYnB2TUJobUloMmc?oc=5" target="_blank" rel="noopener">MARA Holdings, Inc. (MARA) Stock Price, News, Quote &amp; History - Yahoo! Finance Canada</a> - 요약: 제목: MARA Holdings, Inc. (MARA) Stock Price, News, Quote &amp; History - Yahoo! Finance Canada 요약 후보: MARA Holdings Inc. 관련 기사로, Yahoo! Finance Canada</li>
+<li>2026-11-03 04:32 | Investing.com | <a href="https://news.google.com/rss/articles/CBMilAFBVV95cUxQai1aZ1NXZVFVbTZPNUFJaElFRFZSMVRpMWZCS1oxNS1XYk5IN001Ynh2UE1nbE5YSUxCVXYxaHktc3Fac0JrVHgzaGc0QjhTaU1xM3dKWm5JTjNQV1FVVXB1WW93VGtfOWV5R1NsM1FkeEVMdzJWcmFkVno0VEpET185MFFxeWpKeU5EZGFubjd4R0ln?oc=5" target="_blank" rel="noopener">Mara stock hits 52-week low at $6.44 - Investing.com</a> - 요약: 제목: Mara stock hits 52-week low at $6.44 - Investing.com 요약 후보: MARA Holdings Inc. 관련 기사로, Investing.com</li>
+<li>2026-11-05 22:00 | Stock Titan | <a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxQZXBFQmJ6QnlOa0ZvZG5OVnpvZG9kb00zSHN1VUVLQ0lLZHg1TkZRdjl3VU1ZelZzSjJUcTRVR3ZVYVZGWkpUMzNPem5EQTVFUW1CM0x1dGx2dmJVUzUzazctT1ktbzJFanFEZzVpdk9KT0JHcU5kTnNvZS04cG5lYWUxU2V2STJ2U2xVaDRneFpuejZPYnYtQW1HdU16WkZKajBZZV9yYkRvd0dYdHhTYW4tQnY2X2kwaEo3ZjM1Yw?oc=5" target="_blank" rel="noopener">More than 1,600 acres and a gas power plant are part of MARA&#x27;s planned deal - Stock Titan</a> - 요약: 제목: More than 1,600 acres and a gas power plant are part of MARA&#x27;s planned deal - Stock Titan 요약 후보: MARA Holdings Inc. 관련 기사로, Stock Titan</li>
+<li>2026-11-03 10:39 | Finviz | <a href="https://news.google.com/rss/articles/CBMisgFBVV95cUxPOHNDUXFJMHdQcTZodF9KTjNVanc1UGdONlhpcHZCMTMzV3F4UEFnQWZWeUx1Y2lqXzBQU19wazVYTC0yb1BqME93VTZYVU9TcjlLV05aYkU0MWNHblFKWlRMa1JndXdJTEhKeFFIMjZuQUpjc01QTEx2QmpkUkNiaVItSUtVWlVLRzVJRy1kUlNaRWk1WWVaUlhLX2JtV0EwakVXd3c2eWI5WXB0N3pBTGRn?oc=5" target="_blank" rel="noopener">MARA&#x27;s Q3 Test: Can Lease Progress And Longridge Offset A Shrinking Bitcoin Cushion? - Finviz</a> - 요약: 제목: MARA&#x27;s Q3 Test: Can Lease Progress And Longridge Offset A Shrinking Bitcoin Cushion? - Finviz 요약 후보: MARA Holdings Inc. 관련 기사로, Finviz</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-nio">17. NIO Inc. American depositary shares each representing one Class A ordinary share (NIO)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Industrials / Auto Manufacturing</li>
+<li>종가: $3.30</li>
+<li>거래량: 46,076,959</li>
+<li>변동률: <span class="positive">+3.45%</span></li>
+<li>웹사이트: https://www.nio.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>NIO Inc. American depositary shares each representing one Class A ordinary share는 Industrials 섹터의 Auto Manufacturing 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>최근 5일 내 확인된 뉴스 없음 또는 뉴스 수집 실패</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-te">18. T1 Energy Inc. (TE)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Technology / Semiconductors</li>
+<li>종가: $2.73</li>
+<li>거래량: 44,859,473</li>
+<li>변동률: <span class="negative">-3.53%</span></li>
+<li>웹사이트: https://www.t1energy.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>T1 Energy Inc.는 Technology 섹터의 Semiconductors 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-11-05 03:14 | MarketBeat | <a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxNWk44UE83cGlOZDJrWVhPVmFHaXVqYXZkRWVmUW1nVmQ4S0Z0QVVUMjJYYnZxVFFzVkJuWTl5TU9FTGtpN280d1Ezbkp4UlJKaVdWMjNTSGVMNGs0dkU2ZUpSNmJablFhdWJpT21PamhKb1I1bFdJdzY5THhGMGRnS1Q0M0ZwRWVJYzRNMEJiM1k4Y3Atd1lWa0luM21fWW05Rzd4WEdwTzZYUQ?oc=5" target="_blank" rel="noopener">T1 Energy (NYSE:TE) Shares Gap Up - Should You Buy? - MarketBeat</a> - 요약: 제목: T1 Energy (NYSE:TE) Shares Gap Up - Should You Buy? - MarketBeat 요약 후보: T1 Energy Inc. 관련 기사로, MarketBeat</li>
+<li>2026-11-04 04:02 | Timothy Sykes | <a href="https://news.google.com/rss/articles/CBMicEFVX3lxTE8taGR4c1N4S3F5V1l2Ym5IWW5MRnRIZXB0alRvYzNBbHRLaGdUYXY3MGRycXg3TnJQOG9mc2hVSTVrZUdVMTFnUnB3alJieVRxUXhNbjY2VU0yaE9IREpya2lMT3UxZGxGa0NHN3B3ZW8?oc=5" target="_blank" rel="noopener">TE Stock Grinds Higher As Traders Watch Debt-Fueled Turnaround - Timothy Sykes</a> - 요약: 제목: TE Stock Grinds Higher As Traders Watch Debt-Fueled Turnaround - Timothy Sykes 요약 후보: T1 Energy Inc. 관련 기사로, Timothy Sykes</li>
+<li>2026-11-04 02:22 | MarketBeat | <a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxORkM2NmFMM1kwSDNkTTVXc1lrNTZfRDhSdnBNMWNBVkU4ZDkxVVlHNGFkZ2JlOGJ5LTZBWDc5bnRHZHB3ZWxkRTQ3cjBERGZmSmpXX0FFTFc4dE9LRy00S3BndkZQckJfc1hnQlp2b3QyenJEd1NNVkFnMEc4REFUT0ViS2ZIdjRYRVFUZXl5STA5VlJpak1CZkJ0OE9BVlE4M25SWktkNlZfQQ?oc=5" target="_blank" rel="noopener">T1 Energy (NYSE:TE) Shares Climb 11.1% - Still a Buy? - MarketBeat</a> - 요약: 제목: T1 Energy (NYSE:TE) Shares Climb 11.1% - Still a Buy? - MarketBeat 요약 후보: T1 Energy Inc. 관련 기사로, MarketBeat</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-amc">19. AMC Entertainment Holdings Inc. Class A (AMC)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Consumer Discretionary / Movies/Entertainment</li>
+<li>종가: $3.52</li>
+<li>거래량: 43,649,408</li>
+<li>변동률: <span class="positive">+7.32%</span></li>
+<li>웹사이트: https://www.amctheatres.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>AMC Entertainment Holdings Inc. Class A는 Consumer Discretionary 섹터의 Movies/Entertainment 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>최근 5일 내 확인된 뉴스 없음 또는 뉴스 수집 실패</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+<h3 id="stock-jblu">20. JetBlue Airways Corporation (JBLU)</h3>
+<ul>
+<li>거래소: US listed</li>
+<li>섹터/산업: Consumer Discretionary / Air Freight/Delivery Services</li>
+<li>종가: $3.56</li>
+<li>거래량: 43,246,471</li>
+<li>변동률: <span class="positive">+11.95%</span></li>
+<li>웹사이트: https://www.jetblue.com</li>
+</ul>
+<p><strong>회사 개요</strong></p>
+<p>JetBlue Airways Corporation는 Consumer Discretionary 섹터의 Air Freight/Delivery Services 업종에 속한 미국 상장 기업입니다. 자동 번역 API 키가 없어 원문 회사 설명 전체 번역은 생략됐지만, 보고서 생성은 정상 진행됐습니다.</p>
+<p><strong>최근 5일 뉴스</strong></p>
+<ul>
+<li>2026-11-05 21:46 | Yahoo Finance | <a href="https://news.google.com/rss/articles/CBMimAFBVV95cUxNVVMtQlZIRXpGOFJQTlYzU08yRDhwYUhpajlZQzZ0cVJvdy1fbkhEcXlkSFVJdnlpR1A3bTRadTdHd0ZVVEU0VEJ1T0RKdUx4R0V0S29QN2htcDJ3aFQzZU1hbk1wR3k2bk9rbnlodDN0M1E1M2Vsd0NmVnBzSnVxWldvX3lKT0U3dXhMYmxzQ3V6Qm5zS2VhNg?oc=5" target="_blank" rel="noopener">JetBlue Airways Corporation (JBLU) Stock Forecasts - Yahoo Finance</a> - 요약: 제목: JetBlue Airways Corporation (JBLU) Stock Forecasts - Yahoo Finance 요약 후보: JetBlue Airways Corporation 관련 기사로, Yahoo Finance</li>
+<li>2026-11-05 03:16 | Seeking Alpha | <a href="https://news.google.com/rss/articles/CBMiekFVX3lxTFAxaUp0VGdUWFBFQk5QQm9ERkN3aXhvSXF0aEFCeWcwYV9Dc05sX0kxRUdNMTlJVG82VzlNeUJHV2xhVGdLT0ZnZkZ1RHFMRUF2Xy1EOGZPWlNDQkZTTjhBbERYeHNMM2xFVjU1Qmxma1ZKQ19Pc2gtWHdR?oc=5" target="_blank" rel="noopener">JetBlue hikes baggage fees again (JBLU:NASDAQ) - Seeking Alpha</a> - 요약: 제목: JetBlue hikes baggage fees again (JBLU:NASDAQ) - Seeking Alpha 요약 후보: JetBlue Airways Corporation 관련 기사로, Seeking Alpha</li>
+<li>2026-11-05 05:52 | MarketBeat | <a href="https://news.google.com/rss/articles/CBMitAFBVV95cUxNakpUQlByN3R5RHo1bXI1Zl96bGxRNnhzNTIxSm1Qb2RJMDVhSlVEWHNwSmNXSGJyLU1jYmFKTlFFd0F1dnZKSGpiU1BJZlpRSkdqRkN5TVFRdmRBMUtnQXdwejhDN3c0ODhrZm1Rb016NUtDaGVnY1c1NC1mZ3N4ajVXYlhicTJUd055T05xTG1WaEdZUzcyeWZmQVl2ZTVwZVRLazh2Vk9KM01xS29qRnBIYWk?oc=5" target="_blank" rel="noopener">JetBlue Airways (NASDAQ:JBLU) Shares Climb 13.1% - Here&#x27;s Why - MarketBeat</a> - 요약: 제목: JetBlue Airways (NASDAQ:JBLU) Shares Climb 13.1% - Here&#x27;s Why - MarketBeat 요약 후보: JetBlue Airways Corporation 관련 기사로, MarketBeat</li>
+<li>2026-11-03 06:39 | Seeking Alpha | <a href="https://news.google.com/rss/articles/CBMiogFBVV95cUxQMVJHT3MtTzJ6azFtbUd5MWR0V01wMXFfTi1UVHA1R3ZyTk5CdkV6QkxSb3RVSHJkb3Z5RFlGNmZKcVoydGh4bmZWS1o2aTd3eVVXYVZQWWg3YzhLVzRHdlBhX0xDZVNCaFJkbThBbXExaFotYm0yemFBS3cxRVB5TnR0alVuQU9VWU5zejZja1dhSXBubTlpZUxpbC1ES2o3bFE?oc=5" target="_blank" rel="noopener">JetBlue Airways climbs 11% as airlines rise and oil prices drop (JBLU:NASDAQ) - Seeking Alpha</a> - 요약: 제목: JetBlue Airways climbs 11% as airlines rise and oil prices drop (JBLU:NASDAQ) - Seeking Alpha 요약 후보: JetBlue Airways Corporation 관련 기사로, Seeking Alpha</li>
+</ul>
+<p><strong>최근 공시/실적 발표</strong></p>
+<ul>
+<li>최근 5일 내 확인된 실적 발표/관련 공시 없음</li>
+</ul>
+          </article>
+        </section>
+        
+</body>
+</html>
